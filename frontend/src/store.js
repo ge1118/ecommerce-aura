@@ -2,21 +2,29 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit'
 // import thunk from 'redux-thunk'
 // import { composeWithDevTools } from 'redux-devtools-extension'
 import { productListReducer, productDetailsReducer } from './reducers/productReducers'
+import { cartReducer } from './reducers/cartReducers'
 
 
 const reducer = combineReducers({
     productList: productListReducer,
     productDetails: productDetailsReducer,
+    cart: cartReducer,
 })
 
-const initialState = {}
+const cartItemFromStorage = localStorage.getItem('cartItems')
+    ? JSON.parse(localStorage.getItem('cartItems'))
+    : []
 
-export default function configureAppStore(preloadedState) {
+const initialState = {
+    cart: { cartItems: cartItemFromStorage }
+}
+
+export default function configureAppStore() {
     const store = configureStore({
         reducer: reducer,
         middleware: getDefaultMiddleware =>
             getDefaultMiddleware(),
-        preloadedState,
+        preloadedState: initialState,
     })
 
     return store

@@ -6,6 +6,7 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import HomePage from './pages/HomePage'
 import ProductPage from './pages/ProductPage'
+import CartPage from './pages/CartPage'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Routes>
             <Route path='/' Component={HomePage}></Route>
             <Route path='/product/:id' Component={ProductPage}></Route>
+            <Route path='/cart/:id?' Component={CartPage}></Route>
           </Routes>
         </Container>
       </main>
