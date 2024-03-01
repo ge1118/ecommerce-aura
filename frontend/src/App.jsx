@@ -7,6 +7,9 @@ import Footer from './components/Footer'
 import HomePage from './pages/HomePage'
 import ProductPage from './pages/ProductPage'
 import CartPage from './pages/CartPage'
+import LoginPage from './pages/LoginPage'
+import RegisterPage from './pages/RegisterPage'
+import ProfilePage from './pages/ProfilePage'
 
 function App() {
   return (
@@ -16,6 +19,9 @@ function App() {
         <Container>
           <Routes>
             <Route path='/' Component={HomePage}></Route>
+            <Route path='/login' Component={LoginPage}></Route>
+            <Route path='/register' Component={RegisterPage}></Route>
+            <Route path='/profile' Component={ProfilePage}></Route>
             <Route path='/product/:id' Component={ProductPage}></Route>
             <Route path='/cart/:id?' Component={CartPage}></Route>
           </Routes>
