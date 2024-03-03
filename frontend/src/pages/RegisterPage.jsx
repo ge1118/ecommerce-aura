@@ -48,7 +48,7 @@ const RegisterPage = () => {
 
             <Form onSubmit={submitHandler}>
                 <Form.Group controlId='name'>
-                    <Form.Label>Name Address</Form.Label>
+                    <Form.Label>Name</Form.Label>
 
                     <Form.Control
                         required
@@ -56,7 +56,6 @@ const RegisterPage = () => {
                         placeholder='Enter Name'
                         value={name}
                         onChange={(e) => setName(e.target.value)}>
-
                     </Form.Control>
                 </Form.Group>
 
@@ -69,7 +68,6 @@ const RegisterPage = () => {
                         placeholder='Enter Email'
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}>
-
                     </Form.Control>
                 </Form.Group>
 
@@ -82,7 +80,6 @@ const RegisterPage = () => {
                         placeholder='Enter Password'
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}>
-
                     </Form.Control>
                 </Form.Group>
 
@@ -95,11 +92,12 @@ const RegisterPage = () => {
                         placeholder='Confirm Password'
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}>
-
                     </Form.Control>
                 </Form.Group>
 
-                <Button type='submit' variant='primary' className='mt-4'>Register</Button>
+                <Button type='submit' variant='primary' className='mt-4'>
+                    Register
+                </Button>
             </Form>
 
             <Row className='py-3'>
