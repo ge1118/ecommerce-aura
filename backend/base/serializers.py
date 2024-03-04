@@ -2,6 +2,8 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework_simplejwt.tokens import RefreshToken
 from .models import Product, Order, OrderItem, ShippingAddress
+from django.conf import settings
+
 
 class UserSerializer(serializers.ModelSerializer):
     name = serializers.SerializerMethodField(read_only=True)
@@ -38,9 +40,23 @@ class UserSerializerWithToken(UserSerializer):
     
 
 class ProductSerializer(serializers.ModelSerializer):
+    image_name = serializers.SerializerMethodField(read_only=True)
+    image = serializers.SerializerMethodField(read_only=True)
+
     class Meta:
         model = Product
         fields = '__all__'
+
+    def get_image_name(self, obj):
+        if obj.image:
+            return f'{obj.image}'
+        return None
+
+    def get_image(self, obj):
+        if obj.image:
+            return f'{settings.BACKEND_BASE_URL}{settings.MEDIA_URL}{obj.image}'
+        return None
+
 
 
 class ShippingAddressSerializer(serializers.ModelSerializer):
@@ -50,9 +66,22 @@ class ShippingAddressSerializer(serializers.ModelSerializer):
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
+    image_name = serializers.SerializerMethodField(read_only=True)
+    image = serializers.SerializerMethodField(read_only=True)
+
     class Meta:
         model = OrderItem
-        fields = '__all__'
+        fields = '__all__'        
+
+    def get_image_name(self, obj):
+        if obj.image:
+            return f'{obj.image}'
+        return None
+
+    def get_image(self, obj):
+        if obj.image:
+            return f'{settings.BACKEND_BASE_URL}{obj.image}'
+        return None
 
 
 class OrderSerializer(serializers.ModelSerializer):

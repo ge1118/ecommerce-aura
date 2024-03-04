@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
-import { Card, Col, Image, ListGroup, Row } from 'react-bootstrap'
+import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Button, Card, Col, Image, ListGroup, Row } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { PayPalButton } from 'react-paypal-button-v2'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { getOrderDetails, payOrder } from '../actions/orderActions'
-import { ORDER_PAY_RESET } from '../constants/orderConstants'
+import { getOrderDetails, payOrder, deliverOrder } from '../actions/orderActions'
+import { ORDER_PAY_RESET, ORDER_DELIVER_RESET } from '../constants/orderConstants'
 
 const OrderPage = () => {
 
     let { id } = useParams();
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const [sdkReady, setSdkReady] = useState(false)
     const [itemsPrice, setItemsPrice] = useState(0)
 
@@ -21,26 +22,33 @@ const OrderPage = () => {
     const orderPay = useSelector(state => state.orderPay)
     const { loading: loadingPay, success: successPay } = orderPay
 
+    const orderDeliver = useSelector(state => state.orderDeliver)
+    const { loading: loadingDeliver, success: successDeliver } = orderDeliver
 
+    const userLogin = useSelector(state => state.userLogin)
+    const { userInfo } = userLogin
 
     const addPayPalScript = () => {
         const script = document.createElement('script')
         script.type = 'text/javascript'
-        script.src = 'https://www.paypal.com/sdk/js?client-id=AYIEHzUsQXr9V440zEqJqM36C0YEN1hKlnb4-m-E6w48D0rW0mubww7_Zxv1Dl_g7dwvdiUOQqlPdaDZ&components=buttons'
+        script.src = `https://www.paypal.com/sdk/js?client-id=${import.meta.env.VITE_PAYPAL_CLIENT_ID}&components=buttons`
         script.async = true
         script.onload = () => {
             setSdkReady(true)
-            console.log(sdkReady)
         }
         document.body.appendChild(script)
     }
 
     useEffect(() => {
+        if (!userInfo) {
+            navigate('/login')
+        }
         if (!loading && !error) {
             setItemsPrice(order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0).toFixed(2))
         }
-        if (!order || successPay || order._id !== Number(id)) {
+        if (!order || successPay || successDeliver || order._id !== Number(id)) {
             dispatch({ type: ORDER_PAY_RESET })
+            dispatch({ type: ORDER_DELIVER_RESET })
             dispatch(getOrderDetails(id))
         } else if (!order.isPaid) {
             if (!window.paypal) {
@@ -49,12 +57,15 @@ const OrderPage = () => {
                 setSdkReady(true)
             }
         }
-    }, [dispatch, order, id, successPay])
+    }, [dispatch, order, id, successPay, successDeliver])
 
     const successPaymentHandler = (paymentMethod) => {
         dispatch(payOrder(id, paymentMethod))
     }
 
+    const DeliverHandler = () => {
+        dispatch(deliverOrder(order))
+    }
 
     return loading ? (
         <Loader />
@@ -188,6 +199,22 @@ const OrderPage = () => {
                                 )
                             }
                         </ListGroup>
+
+                        {loadingDeliver && <Loader />}
+
+                        {
+                            userInfo && userInfo.isAdmin && order.isPaid && !order.isDelivered && (
+                                <ListGroup.Item className='d-grid'>
+                                    <Button
+                                        type='button'
+                                        className='btn btn-block'
+                                        onClick={DeliverHandler}
+                                    >
+                                        Mark As Delivered
+                                    </Button>
+                                </ListGroup.Item>
+                            )
+                        }
                     </Card>
                 </Col>
             </Row>

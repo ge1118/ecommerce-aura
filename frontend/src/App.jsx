@@ -14,6 +14,11 @@ import ShippingPage from './pages/ShippingPage'
 import PaymentPage from './pages/PaymentPage'
 import PlaceOrderPage from './pages/PlaceOrderPage'
 import OrderPage from './pages/OrderPage'
+import UserListPage from './pages/UserListPage'
+import UserEditPage from './pages/UserEditPage'
+import ProductListPage from './pages/ProductListPage'
+import ProductEditPage from './pages/ProductEditPage'
+import OrderListPage from './pages/OrderListPage'
 
 function App() {
   return (
@@ -32,6 +37,12 @@ function App() {
             <Route path='/payment' Component={PaymentPage}></Route>
             <Route path='/placeorder' Component={PlaceOrderPage}></Route>
             <Route path='/order/:id' Component={OrderPage}></Route>
+
+            <Route path='/admin/userlist' Component={UserListPage}></Route>
+            <Route path='/admin/user/:id/edit' Component={UserEditPage}></Route>
+            <Route path='/admin/productlist' Component={ProductListPage}></Route>
+            <Route path='/admin/product/:id/edit' Component={ProductEditPage}></Route>
+            <Route path='/admin/orderlist' Component={OrderListPage}></Route>
           </Routes>
         </Container>
       </main>
