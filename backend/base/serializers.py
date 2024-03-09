@@ -47,7 +47,7 @@ class ReviewSerializer(serializers.ModelSerializer):
 
 class ProductSerializer(serializers.ModelSerializer):
     image_name = serializers.SerializerMethodField(read_only=True)
-    image = serializers.SerializerMethodField(read_only=True)
+    # image = serializers.SerializerMethodField(read_only=True)
     reviews = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
@@ -59,10 +59,10 @@ class ProductSerializer(serializers.ModelSerializer):
             return f'{obj.image}'
         return None
 
-    def get_image(self, obj):
-        if obj.image:
-            return f'{settings.BACKEND_BASE_URL}{settings.MEDIA_URL}{obj.image}'
-        return None
+    # def get_image(self, obj):
+    #     if obj.image:
+    #         return f'{settings.BACKEND_BASE_URL}{settings.MEDIA_URL}{obj.image}'
+    #     return None
 
     def get_reviews(self, obj):
         reviews = obj.review_set.all()
@@ -78,7 +78,7 @@ class ShippingAddressSerializer(serializers.ModelSerializer):
 
 class OrderItemSerializer(serializers.ModelSerializer):
     image_name = serializers.SerializerMethodField(read_only=True)
-    image = serializers.SerializerMethodField(read_only=True)
+    # image = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = OrderItem
@@ -89,10 +89,10 @@ class OrderItemSerializer(serializers.ModelSerializer):
             return f'{obj.image}'
         return None
 
-    def get_image(self, obj):
-        if obj.image:
-            return f'{settings.BACKEND_BASE_URL}{obj.image}'
-        return None
+    # def get_image(self, obj):
+    #     if obj.image:
+    #         return f'{settings.BACKEND_BASE_URL}{obj.image}'
+    #     return None
 
 
 class OrderSerializer(serializers.ModelSerializer):
