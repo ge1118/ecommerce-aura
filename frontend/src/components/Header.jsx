@@ -26,10 +26,10 @@ const Header = () => {
 
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
-                    <Navbar.Collapse id="basic-navbar-nav">
+                    <Navbar.Collapse id="basic-navbar-nav" className='d-flex justify-content-between'>
                         <SearchBox />
 
-                        <Nav className="me-auto">
+                        <Nav>
                             <LinkContainer to='/cart'>
                                 <Nav.Link><i className='fas fa-shopping-cart' />Cart</Nav.Link>
                             </LinkContainer>
@@ -69,9 +69,9 @@ const Header = () => {
                         </Nav>
                     </Navbar.Collapse>
 
-                </Container>
-            </Navbar>
-        </header>
+                </Container >
+            </Navbar >
+        </header >
     )
 }
 

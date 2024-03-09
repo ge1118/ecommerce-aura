@@ -1,5 +1,6 @@
 # Ignore Python bytecode files
 __pycache__/
+__pycache__
 *.pyc
 
 # Ignore environment-specific settings
@@ -37,4 +38,4 @@ env/
 *.user
 
 # Ignore collected static files
-staticfiles/
+# staticfiles/
