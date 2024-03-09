@@ -56,7 +56,9 @@ npm install
 - Create an AWS S3 bucket and note your bucket name and region.
 - Create IAM credentials (access key ID and secret access key) with permissions to access the bucket.
 
-5. Set up environment variables
+5. Create a PostgreSQL database and configure the connection settings
+
+6. Set up environment variables
 - Copy .env.example to a new file named .env.
 - Fill in the .env file with your specific values, including your Django SECRET_KEY, AWS credentials, and any other necessary configuration.
 ```
@@ -79,12 +81,12 @@ AWS_S3_REGION_NAME=your_aws_s3_region_name
 VITE_PAYPAL_CLIENT_ID=your_paypal_client_id
 ```
 
-6. Database Migrations
+7. Database Migrations
 ```
 python manage.py migrate
 ```
 
-7. Run the Development Server
+8. Run the Development Server
 ```
 python manage.py runserver
 ```
