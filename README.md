@@ -37,7 +37,6 @@ Feel free to register an account, explore various products, and order what you w
 1. Clone the repository
 ```
 git clone https://github.com/ge1118/ecommerce-proshop.git
-cd studybud
 ```
 
 2. Set up a virtual environment
