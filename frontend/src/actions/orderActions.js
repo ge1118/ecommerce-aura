@@ -60,7 +60,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
             payload: data
         })
 
-        localStorage.removeItem('cartItems')
+        localStorage.removeItem('cartItemId')
 
     } catch (error) {
         dispatch({
@@ -183,7 +183,7 @@ export const deliverOrder = (order) => async (dispatch, getState) => {
 }
 
 
-export const listMyOrders = () => async (dispatch, getState) => {
+export const listMyOrders = (page = '') => async (dispatch, getState) => {
     try {
         dispatch({ type: ORDER_LIST_MY_REQUEST })
 
@@ -199,7 +199,7 @@ export const listMyOrders = () => async (dispatch, getState) => {
         }
 
         const { data } = await axios.get(
-            `/api/orders/myorders/`,
+            `/api/orders/myorders?page=${page}`,
             config
         )
 
@@ -219,7 +219,7 @@ export const listMyOrders = () => async (dispatch, getState) => {
 }
 
 
-export const listOrders = () => async (dispatch, getState) => {
+export const listOrders = (page = '') => async (dispatch, getState) => {
     try {
         dispatch({ type: ORDER_LIST_REQUEST })
 
@@ -233,9 +233,10 @@ export const listOrders = () => async (dispatch, getState) => {
                 Authorization: `Bearer ${userInfo.token}`
             }
         }
+        console.log(page)
 
         const { data } = await axios.get(
-            `/api/orders/`,
+            `/api/orders?page=${page}`,
             config
         )
 

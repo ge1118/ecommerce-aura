@@ -1,0 +1,49 @@
+.faq {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    width: 65%;
+    margin-bottom: 3rem;
+
+    .faq-item {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        .question {
+            outline: none;
+            border: none;
+            padding: 1.6rem;
+            font-size: 1.1rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            border-bottom: 1px solid #ccc;
+            background-color: #fff;
+            cursor: pointer;
+
+            i {
+                font-size: 0.9rem;
+            }
+        }
+
+        .answer {
+            visibility: hidden;
+            height: 0;
+            opacity: 0;
+            padding: 0rem 4.5rem 0rem 1.5rem;
+            transition: all 0.5s ease;
+            font-size: 0.9rem;
+            line-height: 1.5rem;
+
+            &.visible {
+                visibility: visible;
+                opacity: 1;
+                height: 5rem;
+                padding: 1.5rem 4.5rem 2rem 1.5rem;
+            }
+        }
+    }
+}

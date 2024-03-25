@@ -33,6 +33,15 @@ import {
     PRODUCT_TOP_REQUEST,
     PRODUCT_TOP_SUCCESS,
     PRODUCT_TOP_FAIL,
+
+    PRODUCT_NEW_REQUEST,
+    PRODUCT_NEW_SUCCESS,
+    PRODUCT_NEW_FAIL,
+
+    PRODUCT_REVIEW_DELETE_REQUEST,
+    PRODUCT_REVIEW_DELETE_SUCCESS,
+    PRODUCT_REVIEW_DELETE_FAIL,
+    PRODUCT_REVIEW_DELETE_RESET,
 } from '../constants/productConstants'
 
 
@@ -46,7 +55,7 @@ export const productListReducer = (state = { products: [] }, action) => {
                 loading: false,
                 products: action.payload.products,
                 page: action.payload.page,
-                pages: action.payload.pages
+                pages: action.payload.pages,
             }
 
         case PRODUCT_LIST_FAIL:
@@ -185,3 +194,39 @@ export const productTopRatedReducer = (state = { products: [] }, action) => {
     }
 }
 
+
+export const productNewReducer = (state = { products: [] }, action) => {
+    switch (action.type) {
+        case PRODUCT_NEW_REQUEST:
+            return { loading: true, products: [] }
+
+        case PRODUCT_NEW_SUCCESS:
+            return { loading: false, products: action.payload }
+
+        case PRODUCT_NEW_FAIL:
+            return { loading: false, error: action.payload }
+
+        default:
+            return state
+    }
+}
+
+
+export const productReviewDeleteReducer = (state = {}, action) => {
+    switch (action.type) {
+        case PRODUCT_REVIEW_DELETE_REQUEST:
+            return { loading: true }
+
+        case PRODUCT_REVIEW_DELETE_SUCCESS:
+            return { loading: false, success: true }
+
+        case PRODUCT_REVIEW_DELETE_FAIL:
+            return { loading: false, error: action.payload }
+
+        case PRODUCT_REVIEW_DELETE_RESET:
+            return {}
+
+        default:
+            return state
+    }
+}

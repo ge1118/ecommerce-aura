@@ -1,0 +1,16 @@
+.pagination {
+    display: flex;
+    list-style: none;
+    gap: 1.7rem;
+    margin-top: 5rem;
+    align-self: center;
+
+    span {
+        font-weight: bold;
+        color: #924a4d;
+
+        &.visually-hidden {
+            display: none;
+        }
+    }
+}

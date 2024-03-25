@@ -1,0 +1,40 @@
+.product {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.7rem;
+    margin-top: 2rem;
+    position: relative;
+    padding-top: 2rem;
+    font-size: 0.9rem;
+    width: 20rem;
+
+    .status {
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 0.7rem 1.5rem;
+        color: white;
+    }
+
+    img {
+        width: 17.5rem;
+        height: 17.5rem;
+        cursor: pointer;
+    }
+
+    p {
+        text-align: center;
+
+        &:nth-of-type(3) {
+            font-weight: 600;
+        }
+
+        &:last-of-type {
+            strike {
+                color: grey;
+            }
+        }
+    }
+}

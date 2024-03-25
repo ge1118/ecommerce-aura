@@ -1,0 +1,42 @@
+.homeproducts {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    justify-self: center;
+    width: 70%;
+    gap: 1rem;
+    margin: 7rem 0;
+
+
+    h1 {
+        font-size: 1.5rem;
+        font-weight: normal;
+        color: #404040;
+    }
+
+    hr {
+        width: 100%;
+    }
+
+    .topproducts {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        width: 100%;
+        gap: 2rem;
+        padding-left: 3rem;
+        justify-content: flex-start;
+
+        .product {
+            width: 18rem;
+            height: 27rem;
+            font-weight: 500;
+
+            &:hover {
+                color: #892222;
+            }
+        }
+    }
+}

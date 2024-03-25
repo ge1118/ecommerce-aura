@@ -31,6 +31,11 @@ import {
     USER_UPDATE_SUCCESS,
     USER_UPDATE_FAIL,
     USER_UPDATE_RESET,
+
+    USER_SUBSCRIBE_REQUEST,
+    USER_SUBSCRIBE_SUCCESS,
+    USER_SUBSCRIBE_FAIL,
+    USER_SUBSCRIBE_RESET,
 } from '../constants/userConstants'
 
 
@@ -120,7 +125,12 @@ export const userListReducer = (state = { users: [] }, action) => {
             return { loading: true }
 
         case USER_LIST_SUCCESS:
-            return { loading: false, users: action.payload }
+            return {
+                loading: false,
+                users: action.payload.users,
+                page: action.payload.page,
+                pages: action.payload.pages,
+            }
 
         case USER_LIST_FAIL:
             return { loading: false, error: action.payload }
@@ -164,6 +174,26 @@ export const userUpdateReducer = (state = { user: {} }, action) => {
 
         case USER_UPDATE_RESET:
             return { user: {} }
+
+        default:
+            return state
+    }
+}
+
+
+export const userSubscribeReducer = (state = {}, action) => {
+    switch (action.type) {
+        case USER_SUBSCRIBE_REQUEST:
+            return { loading: true }
+
+        case USER_SUBSCRIBE_SUCCESS:
+            return { loading: false, success: action.payload }
+
+        case USER_SUBSCRIBE_FAIL:
+            return { loading: false, error: action.payload }
+
+        case USER_SUBSCRIBE_RESET:
+            return {}
 
         default:
             return state

@@ -1,0 +1,32 @@
+.about {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 65%;
+    align-self: center;
+    gap: 4rem;
+    margin: 3rem 0;
+
+    .aboutus {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 1rem;
+
+        .title {
+            font-size: 1.3rem;
+            font-weight: 400;
+        }
+
+        hr {
+            width: 100%;
+        }
+
+        p {
+            line-height: 200%;
+            font-size: 0.9rem;
+            width: 90%;
+        }
+    }
+}

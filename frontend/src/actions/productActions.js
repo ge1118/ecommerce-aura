@@ -32,19 +32,32 @@ import {
     PRODUCT_TOP_REQUEST,
     PRODUCT_TOP_SUCCESS,
     PRODUCT_TOP_FAIL,
+
+    PRODUCT_NEW_REQUEST,
+    PRODUCT_NEW_SUCCESS,
+    PRODUCT_NEW_FAIL,
+
+    PRODUCT_REVIEW_DELETE_REQUEST,
+    PRODUCT_REVIEW_DELETE_SUCCESS,
+    PRODUCT_REVIEW_DELETE_FAIL,
 } from '../constants/productConstants'
 
 
-export const listProducts = (keyword = '', page = '') => async (dispatch) => {
+export const listProducts = (keyword = '', page = '', category = '', subcategory = '') => async (dispatch) => {
     try {
         dispatch({ type: PRODUCT_LIST_REQUEST })
 
-        const { data } = (!keyword && !page ?
-            await axios.get(`/api/products`) :
-            (keyword == null) ?
-                await axios.get(`/api/products?page=${page}`) :
-                await axios.get(`/api/products?keyword=${keyword}&page=${page}`))
+        const baseUrl = (
+            subcategory ? `/api/products?category=${category}&subcategory=${subcategory}`
+                : category ? `/api/products?category=${category}`
+                    : '/api/products?'
+        )
 
+        const { data } = (!keyword && !page ?
+            await axios.get(`${baseUrl}`) :
+            (keyword == null) ?
+                await axios.get(`${baseUrl}&page=${page}`) :
+                await axios.get(`${baseUrl}&keyword=${keyword}&page=${page}`))
 
         dispatch({
             type: PRODUCT_LIST_SUCCESS,
@@ -82,6 +95,29 @@ export const listTopProducts = () => async (dispatch) => {
         })
     }
 }
+
+
+export const listNewProducts = (page = '') => async (dispatch) => {
+    try {
+        dispatch({ type: PRODUCT_NEW_REQUEST })
+
+        const { data } = await axios.get(`/api/products/new?page=${page}`)
+
+        dispatch({
+            type: PRODUCT_NEW_SUCCESS,
+            payload: data
+        })
+
+    } catch (error) {
+        dispatch({
+            type: PRODUCT_NEW_FAIL,
+            payload: error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message,
+        })
+    }
+}
+
 
 
 export const listProductDetails = (id) => async (dispatch) => {
@@ -228,9 +264,14 @@ export const uploadImage = (file, productId) => async (dispatch, getState) => {
 
         dispatch({ type: PRODUCT_UPLOAD_IMAGE_REQUEST })
 
+        const {
+            userLogin: { userInfo }
+        } = getState()
+
         const config = {
             headers: {
                 "Content-type": "image/jpeg",
+                Authorization: `Bearer ${userInfo.token}`
             },
         };
 
@@ -285,6 +326,41 @@ export const createProductReview = (productId, review) => async (dispatch, getSt
     } catch (error) {
         dispatch({
             type: PRODUCT_CREATE_REVIEW_FAIL,
+            payload: error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message,
+        })
+    }
+}
+
+
+export const deleteReview = (productId, reviewId) => async (dispatch, getState) => {
+    try {
+        dispatch({ type: PRODUCT_REVIEW_DELETE_REQUEST })
+
+        const {
+            userLogin: { userInfo }
+        } = getState()
+
+        const config = {
+            headers: {
+                'Content-type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+
+        const { data } = await axios.delete(
+            `/api/products/${productId}/reviews/delete/${reviewId}/`,
+            config
+        )
+
+        dispatch({
+            type: PRODUCT_REVIEW_DELETE_SUCCESS
+        })
+
+    } catch (error) {
+        dispatch({
+            type: PRODUCT_REVIEW_DELETE_FAIL,
             payload: error.response && error.response.data.detail
                 ? error.response.data.detail
                 : error.message,

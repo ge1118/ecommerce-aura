@@ -1,0 +1,114 @@
+.cart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 65%;
+    align-self: center;
+    gap: 1rem;
+
+    a {
+        text-decoration: none;
+        color: black;
+        font-weight: bold;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+        font-weight: normal;
+        color: #404040;
+    }
+
+    hr {
+        width: 100%;
+    }
+
+    table {
+        width: 100%;
+
+        th {
+            text-align: start;
+            height: 3rem;
+        }
+
+        .item {
+            margin-top: 1rem;
+        }
+
+        .item-name {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+
+            img {
+                width: 10%;
+            }
+
+            a {
+                color: #651b1e;
+                font-weight: normal;
+            }
+        }
+
+        .btn-group {
+            display: flex;
+
+            button:nth-of-type(1) {
+                outline: none;
+                border: 1px solid grey;
+                border-right: none;
+                background: white;
+                padding: 1rem;
+                border-top-left-radius: 3px;
+                border-bottom-left-radius: 3px;
+                cursor: pointer;
+            }
+
+            button:nth-of-type(2) {
+                outline: none;
+                border: 1px solid grey;
+                border-left: none;
+                background: white;
+                padding: 1rem;
+                border-top-right-radius: 3px;
+                border-bottom-right-radius: 3px;
+                cursor: pointer;
+            }
+
+            input {
+                outline: none;
+                border: 1px solid #404040;
+                background: white;
+                padding: 1rem;
+                text-align: center;
+                width: 3.2rem;
+            }
+        }
+
+        .delete {
+            color: red;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .subtotal {
+            height: 5rem;
+            font-weight: bold;
+
+            td:nth-of-type(1) {
+                text-align: right;
+                padding-right: 3rem;
+            }
+
+            button {
+                color: white;
+                background: black;
+                border-radius: 2px;
+                border: none;
+                padding: 1rem;
+                width: 100%;
+                cursor: pointer;
+            }
+        }
+    }
+}

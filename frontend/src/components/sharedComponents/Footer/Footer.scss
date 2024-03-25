@@ -1,0 +1,100 @@
+.footer-bg {
+    background-color: #f8ecec;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 3rem;
+
+    .footer {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        width: 60%;
+
+        .footer-items {
+            display: flex;
+            justify-content: space-between;
+            padding: 2rem;
+            text-align: center;
+
+            h4 {
+                font-weight: normal;
+            }
+
+            a {
+                font-size: 0.8rem;
+            }
+
+            .quick-links {
+                display: flex;
+                flex-direction: column;
+                gap: 0.7rem;
+            }
+
+            .newsletter {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+
+                .input-name {
+                    display: flex;
+                    gap: 1rem;
+
+                    input {
+                        padding: 0.7rem;
+                        outline: none;
+                        border: 1px solid rgb(204, 204, 204);
+                        width: 15rem;
+                        border-radius: 3px;
+                    }
+                }
+
+                .input-email {
+                    display: flex;
+                    gap: 1rem;
+
+                    input {
+                        padding: 0.7rem;
+                        outline: none;
+                        border: 1px solid rgb(204, 204, 204);
+                        width: 20rem;
+                        border-radius: 3px;
+                    }
+
+                    button {
+                        border: none;
+                        outline: none;
+                        background: black;
+                        color: white;
+                        border-radius: 3px;
+                        padding: 0.7rem;
+                        width: 10rem;
+                        cursor: pointer;
+                    }
+                }
+            }
+
+            .catalog {
+                display: flex;
+                flex-direction: column;
+                gap: 0.7rem;
+
+                a {
+                    font-size: 0.8rem;
+                }
+            }
+        }
+
+        .sns-icons {
+            display: flex;
+            align-self: center;
+            gap: 2rem;
+        }
+
+        .copyright {
+            align-self: center;
+            font-size: 0.8rem;
+            margin-bottom: 4rem;
+        }
+    }
+}

@@ -30,6 +30,11 @@ import {
     USER_UPDATE_REQUEST,
     USER_UPDATE_SUCCESS,
     USER_UPDATE_FAIL,
+
+    USER_SUBSCRIBE_REQUEST,
+    USER_SUBSCRIBE_SUCCESS,
+    USER_SUBSCRIBE_FAIL,
+    USER_SUBSCRIBE_RESET,
 } from '../constants/userConstants'
 import { ORDER_LIST_MY_RESET } from '../constants/orderConstants'
 
@@ -196,7 +201,7 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
 }
 
 
-export const listUsers = () => async (dispatch, getState) => {
+export const listUsers = (page = '') => async (dispatch, getState) => {
     try {
         dispatch({ type: USER_LIST_REQUEST })
 
@@ -212,7 +217,7 @@ export const listUsers = () => async (dispatch, getState) => {
         }
 
         const { data } = await axios.get(
-            `/api/users/`,
+            `/api/users?page=${page}`,
             config
         )
 
@@ -302,6 +307,32 @@ export const updateUser = (user) => async (dispatch, getState) => {
     } catch (error) {
         dispatch({
             type: USER_UPDATE_FAIL,
+            payload: error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message,
+        })
+    }
+}
+
+
+export const subscribeUser = (userData) => async (dispatch) => {
+    try {
+        dispatch({ type: USER_SUBSCRIBE_REQUEST })
+        console.log('request')
+
+        const { data } = await axios.post(
+            `/api/users/send-email/`,
+            userData,
+        )
+
+        dispatch({
+            type: USER_SUBSCRIBE_SUCCESS,
+            payload: data,
+        })
+
+    } catch (error) {
+        dispatch({
+            type: USER_SUBSCRIBE_FAIL,
             payload: error.response && error.response.data.detail
                 ? error.response.data.detail
                 : error.message,

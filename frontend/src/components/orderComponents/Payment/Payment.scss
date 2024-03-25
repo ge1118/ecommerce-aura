@@ -1,0 +1,44 @@
+.payment {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    gap: 1rem;
+    width: 65%;
+
+    h1 {
+        font-size: 1.5rem;
+        font-weight: normal;
+        color: #404040;
+    }
+
+    hr {
+        width: 100%;
+    }
+
+    .options {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        margin-top: 1rem;
+        outline: none;
+        border: none;
+
+        .option {
+            display: flex;
+            gap: 1rem;
+            font-size: 1.2rem;
+        }
+
+        button {
+            background: black;
+            color: white;
+            padding: 1rem;
+            outline: none;
+            border: none;
+            margin-top: 1rem;
+            cursor: pointer;
+        }
+    }
+}

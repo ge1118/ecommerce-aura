@@ -1,0 +1,25 @@
+.loader {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    align-self: center;
+    justify-self: center;
+    justify-content: center;
+
+    span {
+        display: block;
+        width: 70px;
+        height: 70px;
+        border: 3px solid;
+        border-radius: 50%;
+        border-color: transparent #924a4d #924a4d;
+        animation: spinner 690ms infinite linear;
+
+        @keyframes spinner {
+            100% {
+                transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+    }
+}

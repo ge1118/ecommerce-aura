@@ -1,0 +1,103 @@
+.reviews {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    gap: 1rem;
+    width: 65%;
+
+    h1 {
+        font-size: 1.5rem;
+        font-weight: normal;
+        color: #404040;
+    }
+
+    hr {
+        width: 100%;
+    }
+
+    .reviews-total {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        margin-bottom: 3rem;
+
+        p {
+            display: inline-block;
+            cursor: pointer;
+            color: #924a4d;
+        }
+
+    }
+
+    .write-review {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        color: #404040;
+        margin-bottom: 1rem;
+
+        .rating {
+            i {
+                cursor: pointer;
+            }
+        }
+
+        p {
+            margin-bottom: 0.7rem;
+        }
+
+        label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            margin-top: 2rem;
+        }
+
+        textarea {
+            padding: 0.5rem;
+        }
+
+        button {
+            margin-top: 1rem;
+            padding: 1rem;
+            color: white;
+            background: black;
+            border-radius: 3px;
+            border: none;
+            cursor: pointer;
+        }
+    }
+
+    .user-reviews {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 100%;
+        color: #404040;
+
+        .dateanduser {
+            font-size: 0.8rem;
+
+            span {
+                font-weight: 600;
+            }
+        }
+
+        .review {
+            font-size: 0.9rem;
+            margin-top: 0.7rem;
+        }
+
+        hr {
+            margin: 0.5rem 0 1rem 0;
+        }
+
+        i {
+            font-size: 1rem;
+            cursor: pointer;
+        }
+    }
+}

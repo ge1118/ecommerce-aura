@@ -1,51 +1,23 @@
-import React, { useEffect, useState } from 'react'
-import Product from '../components/Product.jsx'
-import Loader from '../components/Loader.jsx'
-import Message from '../components/Message.jsx'
-import Paginate from '../components/Paginate.jsx'
-import ProductCarousel from '../components/ProductCarousel.jsx'
-import { Row, Col } from 'react-bootstrap'
-import { useDispatch, useSelector } from 'react-redux'
-import { listProducts } from '../actions/productActions.js'
-import { useSearchParams } from 'react-router-dom'
+import React from 'react'
+import MainBanner from '../components/homeComponents/MainBanner/MainBanner'
+import Mission from '../components/homeComponents/Mission/Mission'
+import Categories from '../components/homeComponents/Categories/Categories'
+import Details from '../components/sharedComponents/Details/Details'
+import Testimonials from '../components/homeComponents/Testimonials/Testimonials'
+import MidBanner from '../components/homeComponents/MidBanner/MidBanner'
+import HomeProducts from '../components/homeComponents/HomeProducts/HomeProducts'
 
-const HomePage = ({ }) => {
 
-    const dispatch = useDispatch();
-    const [searchParams, setSearchParams] = useSearchParams();
-
-    const productList = useSelector(state => state.productList)
-    const { error, loading, products, page, pages } = productList
-
-    const keyword = searchParams.get('keyword')
-    const pageQuery = searchParams.get('page')
-
-    useEffect(() => {
-        dispatch(listProducts(keyword, pageQuery))
-    }, [dispatch, keyword, pageQuery])
-
+const HomePage = () => {
     return (
-        <div>
-            {!keyword && <ProductCarousel />}
-
-            <h1>Latest Products</h1>
-            {
-                loading
-                    ? <Loader />
-                    : error
-                        ? <Message variant='danger'>{error}</Message>
-                        :
-                        <div>
-                            <Row>
-                                {products.map((product, i) => (
-                                    <Col sm={12} md={6} lg={4} xl={3} key={i}>
-                                        <Product product={product} />
-                                    </Col>
-                                ))}
-                            </Row>
-                            <Paginate page={page} pages={pages} keyword={keyword} />
-                        </div>
-            }
+        <div className='page'>
+            <MainBanner />
+            <Mission />
+            <Categories />
+            <HomeProducts />
+            {/* <Details /> */}
+            <MidBanner />
+            <Testimonials />
         </div>
     )
 }

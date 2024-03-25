@@ -10,8 +10,13 @@ import {
     productUploadImageReducer,
     productReviewCreateReducer,
     productTopRatedReducer,
+    productNewReducer,
+    productReviewDeleteReducer,
 } from './reducers/productReducers'
-import { cartReducer } from './reducers/cartReducers'
+import {
+    cartReducer,
+    saveCartItemIdReducer,
+} from './reducers/cartReducers'
 import {
     userLoginReducer,
     userRegisterReducer,
@@ -20,6 +25,7 @@ import {
     userListReducer,
     userDeleteReducer,
     userUpdateReducer,
+    userSubscribeReducer,
 } from './reducers/userReducers'
 import {
     orderCreateReducer,
@@ -39,7 +45,10 @@ const reducer = combineReducers({
     productUploadImage: productUploadImageReducer,
     productReviewCreate: productReviewCreateReducer,
     productTopRated: productTopRatedReducer,
+    productNew: productNewReducer,
+    productReviewDelete: productReviewDeleteReducer,
 
+    saveCartItemId: saveCartItemIdReducer,
     cart: cartReducer,
 
     userLogin: userLoginReducer,
@@ -49,6 +58,7 @@ const reducer = combineReducers({
     userList: userListReducer,
     userDelete: userDeleteReducer,
     userUpdate: userUpdateReducer,
+    userSubscribe: userSubscribeReducer,
 
     orderCreate: orderCreateReducer,
     orderDetails: orderDetailsReducer,
@@ -58,8 +68,8 @@ const reducer = combineReducers({
     orderList: orderListReducer,
 })
 
-const cartItemFromStorage = localStorage.getItem('cartItems')
-    ? JSON.parse(localStorage.getItem('cartItems'))
+const cartItemFromStorage = localStorage.getItem('cartItemId')
+    ? JSON.parse(localStorage.getItem('cartItemId'))
     : []
 
 const userInfoFromStorage = localStorage.getItem('userInfo')
@@ -71,8 +81,9 @@ const shippingAddressFromStorage = localStorage.getItem('shippingAddress')
     : {}
 
 const initialState = {
+    saveCartItemId: { itemId: cartItemFromStorage },
     cart: {
-        cartItems: cartItemFromStorage,
+        cartItems: [],
         shippingAddress: shippingAddressFromStorage
     },
     userLogin: { userInfo: userInfoFromStorage },

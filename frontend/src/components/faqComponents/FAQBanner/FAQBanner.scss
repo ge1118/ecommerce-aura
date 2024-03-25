@@ -1,0 +1,15 @@
+.faqbanner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(../../../assets/images/faqbannerbg.webp);
+    background-size: 100% 45rem;
+    background-repeat: no-repeat;
+    height: 45rem;
+
+    h1 {
+        font-size: 3rem;
+        font-weight: 400;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+}

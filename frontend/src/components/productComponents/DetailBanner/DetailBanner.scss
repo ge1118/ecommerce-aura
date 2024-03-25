@@ -1,0 +1,16 @@
+.detailbanner {
+    background-image: url('../../../assets/images/detailbannerbg.webp');
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 27rem;
+    width: 65%;
+    background-repeat: no-repeat;
+    align-self: center;
+    background-position: center;
+    margin: 2rem 0;
+
+    h1 {
+        font-weight: 500;
+    }
+}
