@@ -49,6 +49,8 @@ class ProductSerializer(serializers.ModelSerializer):
     image_name = serializers.SerializerMethodField(read_only=True)
     # image = serializers.SerializerMethodField(read_only=True)
     reviews = serializers.SerializerMethodField(read_only=True)
+    isNew = serializers.SerializerMethodField()
+    salePrice = serializers.SerializerMethodField()
 
     class Meta:
         model = Product
@@ -67,7 +69,13 @@ class ProductSerializer(serializers.ModelSerializer):
     def get_reviews(self, obj):
         reviews = obj.review_set.all()
         serializer = ReviewSerializer(reviews, many=True)
-        return serializer.data
+        return serializer.data    
+
+    def get_isNew(self, obj):
+        return obj.isNew
+
+    def get_salePrice(self, obj):
+        return obj.salePrice
 
 
 class ShippingAddressSerializer(serializers.ModelSerializer):

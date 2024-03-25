@@ -3,10 +3,10 @@ from base.views import order_views as views
 
 
 urlpatterns = [
-    path('', views.getOrders, name='orders'),
-    path('add/', views.addOrderItems, name='orders-add'),
-    path('myorders/', views.getMyOrders, name='myorders'),
-    path('<str:pk>/', views.getOrderById, name='user-order'),
-    path('<str:pk>/pay/', views.updateOrderToPaid, name='pay'),
-    path('<str:pk>/deliver/', views.updateOrderToDelivered, name='deliver'),
+    path('', views.GetOrders.as_view(), name='orders'),
+    path('add/', views.AddOrderItems.as_view(), name='orders-add'),
+    path('myorders/', views.GetMyOrders.as_view(), name='myorders'),
+    path('<str:pk>/', views.GetOrderById.as_view(), name='user-order'),
+    path('<str:pk>/pay/', views.UpdateOrderToPaid.as_view(), name='pay'),
+    path('<str:pk>/deliver/', views.UpdateOrderToDelivered.as_view(), name='deliver'),
 ]

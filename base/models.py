@@ -1,21 +1,40 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import MinValueValidator, MaxValueValidator
+from django.utils import timezone
+from datetime import timedelta
+from decimal import Decimal
 
 # Create your models here.
 
 class Product(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    name = models.CharField(max_length=200, null=True, blank=True)
+    name = models.CharField(max_length=200, null=True, blank=True, default='Sample Name')
     image = models.ImageField(null=True, blank=True, default='/sampleImage.jpg')
-    brand = models.CharField(max_length=200, null=True, blank=True)
+    brand = models.CharField(max_length=200, null=True, blank=True, default='Sample Brand')
     category = models.CharField(max_length=200, null=True, blank=True)
-    description = models.TextField(null=True, blank=True)
+    subCategory = models.CharField(max_length=200, null=True, blank=True)
+    description = models.TextField(null=True, blank=True, default='')
     rating = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True)
     numReviews = models.IntegerField(null=True, blank=True, default=0)
-    price = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True)
+    price = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True, default=0)
     countInStock = models.IntegerField(null=True, blank=True, default=0)
     createdAt = models.DateTimeField(auto_now_add=True)
     _id = models.AutoField(primary_key=True, editable=False)
+    onSale = models.BooleanField(default=False)
+    salePercent = models.IntegerField(null=True, blank=True, default=0, validators=[MinValueValidator(0), MaxValueValidator(100)])
+
+    @property
+    def isNew(self):
+        return timezone.now() - self.createdAt <= timedelta(days=10)
+    
+    @property
+    def salePrice(self):
+        if self.onSale and self.salePercent is not None and self.price is not None:
+            discount_factor = Decimal(self.salePercent) / Decimal(100)
+            price_decimal = Decimal(self.price)  # Explicit conversion to Decimal
+            return price_decimal * (Decimal(1) - discount_factor)
+        return self.price
 
     def __str__(self):
         return self.name
