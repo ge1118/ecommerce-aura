@@ -1,10 +1,10 @@
-# ProShop
+# AURA
 
 ## Project Overview
 This project is a comprehensive e-commerce web application designed to provide a seamless online shopping experience. Leveraging modern web development technologies and frameworks, the application offers a rich, interactive user interface and robust backend functionality.
 
 ## Live Demo
-Experience ProShop Web App live on Heroku: [ProShop](https://pro-shop-2fb753a2c98c.herokuapp.com/)
+Experience AURA Web App live on Heroku: [AURA](https://ecommerce-aura-e096c9042858.herokuapp.com/)
 
 Feel free to register an account, explore various products, and order what you want!
 
@@ -36,7 +36,7 @@ Feel free to register an account, explore various products, and order what you w
 ### Setup
 1. Clone the repository
 ```
-git clone https://github.com/ge1118/ecommerce-proshop.git
+git clone https://github.com/ge1118/ecommerce-aura.git
 ```
 
 2. Set up a virtual environment
@@ -63,7 +63,7 @@ npm install
 ```
 # Backend
 # Database Configuration
-DATABASE_NAME=proshop
+DATABASE_NAME=your_database_name
 DATABASE_USER=your_database_user
 DATABASE_PASSWORD=your_database_password
 DATABASE_HOST=your_database_host
@@ -75,6 +75,11 @@ AWS_ACCESS_KEY_ID=your_aws_access_key_id
 AWS_SECRET_ACCESS_KEY=your_aws_secret_access_key
 AWS_STORAGE_BUCKET_NAME=your_aws_s3_bucket_name
 AWS_S3_REGION_NAME=your_aws_s3_region_name
+
+# Email SMTP Configuration
+EMAIL_PORT=your_email_port
+EMAIL_HOST_USER=your_email_host_user
+EMAIL_HOST_PASSWORD=your_email_host_password
 
 # Frontend
 VITE_PAYPAL_CLIENT_ID=your_paypal_client_id
@@ -96,7 +101,7 @@ Access the application at http://127.0.0.1:8000/.
 - .env.example: A template showcasing the required environment variables without actual values. This file should be committed to your repository to guide setup for other developers.
 
 ## AWS S3 Configuration
-Media files in ProShop are served via AWS S3. Ensure you have correctly set up your AWS S3 bucket and provided the necessary credentials in your .env file as described in the setup section.
+Media files in AURA are served via AWS S3. Ensure you have correctly set up your AWS S3 bucket and provided the necessary credentials in your .env file as described in the setup section.
 
 ## Contributing
 Contributions are welcome! Please open a pull request or issue to propose changes or additions.
