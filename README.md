@@ -63,7 +63,7 @@ npm install
 ```
 # Backend
 # Database Configuration
-DATABASE_NAME=proshop
+DATABASE_NAME=your_database_name
 DATABASE_USER=your_database_user
 DATABASE_PASSWORD=your_database_password
 DATABASE_HOST=your_database_host
@@ -75,6 +75,11 @@ AWS_ACCESS_KEY_ID=your_aws_access_key_id
 AWS_SECRET_ACCESS_KEY=your_aws_secret_access_key
 AWS_STORAGE_BUCKET_NAME=your_aws_s3_bucket_name
 AWS_S3_REGION_NAME=your_aws_s3_region_name
+
+# Email SMTP Configuration
+EMAIL_PORT=your_email_port
+EMAIL_HOST_USER=your_email_host_user
+EMAIL_HOST_PASSWORD=your_email_host_password
 
 # Frontend
 VITE_PAYPAL_CLIENT_ID=your_paypal_client_id
