@@ -9,10 +9,14 @@ const Testimonials = () => {
     return (
         <div className='testimonials'>
             <div className="images">
-                <img src={img1} alt="" />
-                <img src={img2} alt="" />
-                <img src={img3} alt="" />
-                <img src={img4} alt="" />
+                <div>
+                    <img src={img1} alt="" />
+                    <img src={img2} alt="" />
+                </div>
+                <div>
+                    <img src={img3} alt="" />
+                    <img src={img4} alt="" />
+                </div>
             </div>
 
             <hr />

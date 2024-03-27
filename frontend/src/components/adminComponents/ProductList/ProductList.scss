@@ -31,47 +31,85 @@
         cursor: pointer;
     }
 
-    .products-table {
+    .products-table-container {
         width: 100%;
 
-        thead {
-            th {
-                height: 4rem;
-            }
-        }
+        .products-table {
+            width: 100%;
 
-        tbody {
-            text-align: center;
-            align-items: center;
-
-            td {
-                height: 4rem;
-            }
-
-            td:last-of-type {
-                display: flex;
-                justify-content: center;
-                padding-bottom: 0.6rem;
-
-                button {
-                    margin: 0;
-                    font-size: 1rem;
+            thead {
+                th {
+                    height: 4rem;
                 }
             }
 
-            button {
-                padding: 0.8rem;
-                outline: none;
-                border: none;
-                border-radius: 2px;
-                font-size: 0.7rem;
-                background-color: transparent;
-                font-size: 1rem;
-                cursor: pointer;
-            }
+            tbody {
+                text-align: center;
+                align-items: center;
 
-            .delete {
-                color: red;
+                td {
+                    height: 4rem;
+                }
+
+                td:last-of-type {
+                    display: flex;
+                    justify-content: center;
+                    padding-bottom: 0.6rem;
+
+                    button {
+                        margin: 0;
+                        font-size: 1rem;
+                    }
+                }
+
+                button {
+                    padding: 0.8rem;
+                    outline: none;
+                    border: none;
+                    border-radius: 2px;
+                    font-size: 0.7rem;
+                    background-color: transparent;
+                    font-size: 1rem;
+                    cursor: pointer;
+                }
+
+                .delete {
+                    color: red;
+                }
+            }
+        }
+
+        .pagination {
+            justify-content: center;
+        }
+    }
+}
+
+@media screen and (max-width: 1250px) {
+    .productlist {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .productlist {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .productlist {
+
+        button {
+            align-self: flex-start;
+        }
+
+        .products-table-container {
+            overflow-x: scroll;
+
+            .products-table {
+                width: 50rem;
+                align-self: flex-start;
             }
         }
     }

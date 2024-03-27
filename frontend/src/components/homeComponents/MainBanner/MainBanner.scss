@@ -97,3 +97,223 @@
         cursor: pointer;
     }
 }
+
+@media screen and (max-width: 1650px) {
+    .mainbanner {
+
+        .mainbanner1,
+        .mainbanner2 {
+            height: 55rem;
+        }
+
+        .arrow {
+            top: 25rem;
+        }
+    }
+}
+
+@media screen and (max-width: 1500px) {
+    .mainbanner {
+
+        .mainbanner1,
+        .mainbanner2 {
+            height: 50rem;
+        }
+
+        .mainbanner1 {
+            .bannerslogan {
+                right: 20rem;
+            }
+        }
+
+        .arrow {
+            top: 22rem;
+        }
+    }
+}
+
+@media screen and (max-width: 1400px) {
+    .mainbanner {
+
+        .mainbanner1,
+        .mainbanner2 {
+            height: 45rem;
+        }
+
+        .arrow {
+            top: 19rem;
+        }
+    }
+}
+
+@media screen and (max-width: 1300px) {
+    .mainbanner {
+
+        .mainbanner1,
+        .mainbanner2 {
+            height: 40rem;
+        }
+
+        .mainbanner1 {
+            .bannerslogan {
+                right: 15rem;
+            }
+        }
+
+        .arrow {
+            top: 17rem;
+        }
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .mainbanner {
+
+        .mainbanner1,
+        .mainbanner2 {
+            height: 35rem;
+
+            .bannerslogan {
+                h1 {
+                    font-size: 2.5rem;
+                }
+
+                h2 {
+                    font-size: 1rem;
+                }
+            }
+        }
+
+        .arrow {
+            top: 15rem;
+        }
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .mainbanner {
+
+        .mainbanner1,
+        .mainbanner2 {
+            height: 30rem;
+        }
+
+        .mainbanner1 {
+            .bannerslogan {
+                right: 10rem;
+            }
+        }
+
+        .arrow {
+            top: 12rem;
+        }
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .mainbanner {
+
+        .mainbanner1,
+        .mainbanner2 {
+            height: 27rem;
+
+            .bannerslogan {
+                gap: 0.8rem;
+
+                h1 {
+                    font-size: 2.2rem;
+                }
+
+                h2 {
+                    font-size: 0.9rem;
+                }
+            }
+        }
+
+        .mainbanner2 {
+            .bannerslogan {
+                left: 6rem;
+            }
+        }
+
+        .arrow {
+            display: none;
+        }
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .mainbanner {
+
+        .mainbanner1,
+        .mainbanner2 {
+            height: 23rem;
+        }
+
+        .mainbanner2 {
+            .bannerslogan {
+                left: 4rem;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .mainbanner {
+
+        .mainbanner1,
+        .mainbanner2 {
+            height: 20rem;
+        }
+
+        .mainbanner1 {
+            .bannerslogan {
+                position: unset;
+                justify-content: center;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .mainbanner {
+
+        .mainbanner1,
+        .mainbanner2 {
+            height: 16rem;
+
+            .bannerslogan {
+                gap: 0.5rem;
+
+                h1 {
+                    font-size: 1.9rem;
+                }
+
+                h2 {
+                    font-size: 0.9rem;
+                }
+
+                button {
+                    margin-top: 0.5rem;
+                }
+            }
+        }
+
+        .mainbanner2 {
+            .bannerslogan {
+                left: 2rem;
+                padding-right: 2rem;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .mainbanner {
+
+        .mainbanner1,
+        .mainbanner2 {
+            height: 12rem;
+        }
+    }
+}

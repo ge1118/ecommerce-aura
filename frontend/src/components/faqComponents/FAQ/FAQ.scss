@@ -12,6 +12,10 @@
         flex-direction: column;
         width: 100%;
 
+        button {
+            text-align: left;
+        }
+
         .question {
             outline: none;
             border: none;
@@ -41,9 +45,25 @@
             &.visible {
                 visibility: visible;
                 opacity: 1;
-                height: 5rem;
+                height: auto;
                 padding: 1.5rem 4.5rem 2rem 1.5rem;
             }
         }
+    }
+}
+
+@media screen and (max-width: 1500px) {
+    .faq {
+        width: 75%;
+
+        .answer {
+            padding-right: 3rem !important;
+        }
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .faq {
+        width: 90%;
     }
 }

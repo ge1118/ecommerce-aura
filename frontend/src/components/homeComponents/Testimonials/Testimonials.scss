@@ -13,8 +13,13 @@
         gap: 1.5rem;
         margin-bottom: 3rem;
 
-        img {
-            width: 17.5rem;
+        div {
+            display: flex;
+            gap: 1.5rem;
+
+            img {
+                width: 17.5rem;
+            }
         }
     }
 
@@ -22,6 +27,7 @@
         font-size: 1.5rem;
         font-weight: normal;
         color: #404040;
+        text-align: center;
     }
 
     hr {
@@ -48,6 +54,126 @@
 
             p:nth-of-type(2) {
                 font-weight: 600;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1500px) {
+    .testimonials {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 1280px) {
+    .testimonials {
+        .images {
+            div {
+                img {
+                    width: 14rem;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1100px) {
+    .testimonials {
+        width: 90%;
+
+        .images {
+            div {
+                img {
+                    width: 12rem;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 920px) {
+    .testimonials {
+        .images {
+            flex-direction: column;
+
+            div {
+                img {
+                    width: 17rem;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .testimonials {
+        .images {
+            div {
+                img {
+                    width: 16rem;
+                }
+            }
+        }
+
+        .reviews {
+            flex-direction: column;
+
+            .review {
+                gap: 1rem;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 610px) {
+    .testimonials {
+        .images {
+            div {
+                img {
+                    width: 14rem;
+                }
+            }
+        }
+
+        .reviews {
+            gap: 2rem;
+        }
+    }
+}
+
+@media screen and (max-width: 530px) {
+    .testimonials {
+        .images {
+            div {
+                img {
+                    width: 12rem;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 470px) {
+    .testimonials {
+        .images {
+            div {
+                img {
+                    width: 10rem;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 380px) {
+    .testimonials {
+        .images {
+            div {
+                flex-direction: column;
+
+                img {
+                    width: 15rem;
+                }
             }
         }
     }

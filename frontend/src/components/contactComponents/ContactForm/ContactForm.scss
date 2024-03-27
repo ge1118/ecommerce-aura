@@ -89,3 +89,34 @@
         }
     }
 }
+
+@media screen and (max-width: 700px) {
+    .contactform {
+        width: 80%;
+
+        form {
+            width: 100%;
+
+            .input-userinfo {
+                flex-direction: column;
+                gap: 1rem;
+
+                .input-name,
+                .input-email {
+
+                    label,
+                    input {
+
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .contactform {
+        width: 90%;
+    }
+}

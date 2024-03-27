@@ -8,9 +8,90 @@
     background-repeat: no-repeat;
     align-self: center;
     background-position: center;
+    background-size: contain;
     margin: 2rem 0;
 
     h1 {
         font-weight: 500;
+    }
+}
+
+@media screen and (max-width: 1500px) {
+    .detailbanner {
+        height: 24rem;
+    }
+}
+
+@media screen and (max-width: 1350px) {
+    .detailbanner {
+        height: 22rem;
+    }
+}
+
+@media screen and (max-width: 1250px) {
+    .detailbanner {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 1030px) {
+    .detailbanner {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 950px) {
+    .detailbanner {
+        height: 20rem;
+    }
+}
+
+@media screen and (max-width: 910px) {
+    .detailbanner {
+        height: 18rem;
+
+        h1 {
+            font-size: 1.7rem;
+        }
+    }
+}
+
+@media screen and (max-width: 790px) {
+    .detailbanner {
+        height: 16rem;
+
+        h1 {
+            font-size: 1.5rem;
+        }
+    }
+}
+
+@media screen and (max-width: 790px) {
+    .detailbanner {
+        height: 14rem;
+
+        h1 {
+            font-size: 1.2rem;
+        }
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .detailbanner {
+        height: 11rem;
+
+        h1 {
+            font-size: 1rem;
+        }
+    }
+}
+
+@media screen and (max-width: 440px) {
+    .detailbanner {
+        height: 9rem;
+
+        h1 {
+            font-size: 0.9rem;
+        }
     }
 }

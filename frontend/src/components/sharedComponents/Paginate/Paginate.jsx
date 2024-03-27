@@ -2,6 +2,7 @@ import React from 'react'
 import { Pagination } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import './Paginate.scss'
+import ScrollToTop from '../../../components/sharedComponents/ScrollToTop/ScrollToTop'
 
 const Paginate = ({ pages, page, keyword = '', isAdmin = false, isAuth = false, category, subcategory, adminmenu }) => {
 
@@ -14,6 +15,7 @@ const Paginate = ({ pages, page, keyword = '', isAdmin = false, isAuth = false, 
     return (
         pages > 1 && (
             <Pagination>
+                <ScrollToTop />
                 {
                     [...Array(pages).keys()].map(x => (
                         <LinkContainer

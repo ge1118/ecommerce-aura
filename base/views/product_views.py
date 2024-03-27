@@ -8,6 +8,7 @@ from rest_framework import status
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils import timezone
 from datetime import timedelta
+from django.db.models import Count
 
 from base.models import Product, Review
 from base.serializers import ProductSerializer
@@ -51,7 +52,7 @@ class GetTopProductsAPIView(GenericAPIView):
     serializer_class = ProductSerializer
 
     def get(self, request, *args, **kwargs):
-        products = Product.objects.filter(rating__gte=4).order_by('-rating')[:12]
+        products = Product.objects.annotate(review_count=Count('review')).filter(rating__gte=4).order_by('-rating', '-review_count')[:12]
         serializer = self.get_serializer(products, many=True)
         return Response(serializer.data)
 
@@ -123,14 +124,15 @@ class CreateProductReviewAPIView(APIView):
         product = Product.objects.get(_id=pk)
         user = request.user
         data = request.data
-        user_ordered_products = Product.objects.filter(
-            orderitem__order__user=user
+        user_ordered_delivered_products = Product.objects.filter(
+            orderitem__order__user=user,
+            orderitem__order__isDelivered=True
         ).distinct()
 
-        print(user_ordered_products)
+        print(user_ordered_delivered_products)
 
-        if not user_ordered_products.filter(_id=product._id):
-            content = {'detail': 'Buy this product to write a review!'}
+        if not user_ordered_delivered_products.filter(_id=product._id).exists():
+            content = {'detail': 'Buy and get this product to write a review!'}
             return Response(content, status=status.HTTP_400_BAD_REQUEST)
 
         alreadyExists = product.review_set.filter(user=user).exists()

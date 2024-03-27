@@ -17,31 +17,64 @@
         width: 100%;
     }
 
-    .orders-table {
+    .orders-table-container {
         width: 100%;
 
-        thead {
-            th {
-                height: 4rem;
+        .orders-table {
+            width: 100%;
+
+            thead {
+                th {
+                    height: 4rem;
+                }
+            }
+
+            tbody {
+                text-align: center;
+                align-items: center;
+
+                td {
+                    height: 4rem;
+                }
+
+                button {
+                    background: black;
+                    color: white;
+                    padding: 0.8rem 1.2rem;
+                    outline: none;
+                    border: none;
+                    border-radius: 2px;
+                    font-size: 0.7rem;
+                }
             }
         }
 
-        tbody {
-            text-align: center;
-            align-items: center;
+        .pagination {
+            justify-content: center;
+        }
+    }
+}
 
-            td {
-                height: 4rem;
-            }
+@media screen and (max-width: 1250px) {
+    .orderlist {
+        width: 80%;
+    }
+}
 
-            button {
-                background: black;
-                color: white;
-                padding: 0.8rem 1.2rem;
-                outline: none;
-                border: none;
-                border-radius: 2px;
-                font-size: 0.7rem;
+@media screen and (max-width: 1000px) {
+    .orderlist {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .orderlist {
+        .orders-table-container {
+            overflow-x: scroll;
+
+            .orders-table {
+                width: 50rem;
+                align-self: flex-start;
             }
         }
     }

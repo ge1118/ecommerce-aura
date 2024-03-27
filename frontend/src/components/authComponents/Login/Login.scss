@@ -65,3 +65,37 @@
         }
     }
 }
+
+@media screen and (max-width: 750px) {
+    .login {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .login {
+        width: 90%;
+
+        .login-form {
+            width: 100%;
+
+            input {
+                width: 100%;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .login {
+        .login-form {
+            div {
+                p {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-end;
+                }
+            }
+        }
+    }
+}

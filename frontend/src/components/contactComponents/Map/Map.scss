@@ -4,8 +4,24 @@
     align-items: center;
 
     iframe {
-        width: 67.5rem;
+        width: 70%;
         height: 25rem;
         border: none;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .map {
+        iframe {
+            width: 80%;
+        }
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .map {
+        iframe {
+            width: 90%;
+        }
     }
 }

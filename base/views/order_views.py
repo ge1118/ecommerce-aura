@@ -11,7 +11,7 @@ from base.serializers import OrderSerializer
 from datetime import datetime
 
 
-class AddOrderItems(APIView):
+class AddOrderItemsAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
@@ -58,7 +58,7 @@ class AddOrderItems(APIView):
 
 
     
-class GetMyOrders(APIView):
+class GetMyOrdersAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
@@ -83,7 +83,7 @@ class GetMyOrders(APIView):
         return Response({'orders' : serializer.data, 'page': page, 'pages': paginator.num_pages})
         
 
-class GetOrders(APIView):
+class GetOrdersAPIView(APIView):
     permission_classes = [IsAdminUser]
 
     def get(self, request, *args, **kwargs):
@@ -106,7 +106,7 @@ class GetOrders(APIView):
         return Response({'orders' : serializer.data, 'page': page, 'pages': paginator.num_pages})
     
 
-class GetOrderById(APIView):
+class GetOrderByIdAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request, pk, *args, **kwargs):
@@ -125,7 +125,7 @@ class GetOrderById(APIView):
             return Response({'detail': 'Order does not exist'}, status=status.HTTP_400_BAD_REQUEST)
 
 
-class UpdateOrderToPaid(APIView):
+class UpdateOrderToPaidAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
     def put(self, request, pk, *args, **kwargs):
@@ -137,7 +137,7 @@ class UpdateOrderToPaid(APIView):
         return Response('Order has been paid')  
 
 
-class UpdateOrderToDelivered(APIView):
+class UpdateOrderToDeliveredAPIView(APIView):
     permission_classes = [IsAdminUser]
 
     def put(self, request, pk, *args, **kwargs):

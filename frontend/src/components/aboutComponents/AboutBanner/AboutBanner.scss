@@ -8,3 +8,39 @@
     height: 40rem;
     background-image: url(../../../assets/images/aboutbannerbg1.webp);
 }
+
+@media screen and (max-width: 1500px) {
+    .aboutbanner {
+        height: 35rem;
+    }
+}
+
+@media screen and (max-width: 1250px) {
+    .aboutbanner {
+        height: 30rem;
+    }
+}
+
+@media screen and (max-width: 1150px) {
+    .aboutbanner {
+        height: 25rem;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .aboutbanner {
+        height: 20rem;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .aboutbanner {
+        height: 15rem;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .aboutbanner {
+        height: 12rem;
+    }
+}

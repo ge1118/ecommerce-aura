@@ -18,3 +18,11 @@
         font-weight: 500;
     }
 }
+
+@media screen and (max-width: 600px) {
+    .checkoutsteps {
+        flex-direction: column;
+        gap: 0.7rem;
+        align-items: center;
+    }
+}

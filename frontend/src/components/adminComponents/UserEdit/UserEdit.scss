@@ -66,3 +66,39 @@
         }
     }
 }
+
+@media screen and (max-width: 1000px) {
+    .useredit {
+        a {
+            padding-left: 2rem;
+        }
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .useredit {
+        width: 80%;
+
+        a {
+            padding-left: 0rem;
+        }
+    }
+}
+
+@media screen and (max-width: 580px) {
+    .useredit {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 580px) {
+    .useredit {
+        .user-edit-form {
+            width: 100%;
+
+            input {
+                width: 100%;
+            }
+        }
+    }
+}

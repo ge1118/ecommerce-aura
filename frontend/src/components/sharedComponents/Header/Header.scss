@@ -57,6 +57,7 @@
                     top: 2rem;
                     background-color: white;
                     padding: 1rem;
+                    width: 6rem;
 
                     ul {
                         display: flex;
@@ -75,11 +76,17 @@
                     top: 2rem;
                     background-color: white;
                     padding: 1rem;
+                    width: 6rem;
 
                     ul {
                         display: flex;
                         flex-direction: column;
                         gap: 0.7rem;
+
+                        .title {
+                            align-items: center;
+                            justify-content: center;
+                        }
 
                         li {
                             font-size: 0.8rem;
@@ -120,6 +127,17 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        position: relative;
+
+        .mobile-menu {
+            display: flex;
+            gap: 1rem;
+            font-size: 1.2rem;
+            align-items: center;
+            padding-left: 1rem;
+            margin-top: 5rem;
+            cursor: pointer;
+        }
 
         ul {
             list-style: none;
@@ -128,25 +146,79 @@
             font-size: 0.8rem;
             margin-top: 4rem;
             font-weight: 500;
+            text-align: center;
+            align-items: center;
 
             li {
                 padding: 0.7rem 0;
+                display: flex;
+                gap: 0.5rem;
+                align-items: center;
+
+                i {
+                    cursor: pointer;
+                }
+
+                a {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                }
+            }
+
+            .narrow-dropdown-category {
+                margin-top: 0;
+                background: #f3ebeb;
+                padding: 1rem;
+
+                &.menu-hidden {
+                    position: absolute;
+                    top: 12.5rem;
+                }
+
+                li {
+                    display: flex;
+                    gap: 0.5rem;
+                    align-items: center;
+
+                    i {
+                        padding-top: 0.25rem;
+                        cursor: pointer;
+                    }
+                }
+
+                .narrow-dropdown-subcategory {
+                    margin-top: 0;
+                    font-size: 0.9rem;
+                    font-weight: 400;
+                    padding-left: 1rem;
+                }
+
+                .newarrivals {
+                    background: #924a4d;
+                    width: 100%;
+                    color: #fff;
+                    font-weight: 400;
+                }
             }
         }
 
         .dropdown {
             display: flex;
-            width: 100%;
             flex-direction: column;
             opacity: 0;
             visibility: hidden;
-            max-height: 0;
+            display: none;
+            width: 100%;
 
             &.visible {
                 opacity: 1;
                 visibility: visible;
                 transition: opacity 0.5s;
                 z-index: 10;
+                display: inline-block;
+                position: absolute;
+                top: 95%;
             }
 
             &.hidden {
@@ -155,12 +227,12 @@
 
             .dropdown-items {
                 display: flex;
-                gap: 3rem;
                 background: #f3ebeb;
                 justify-content: space-evenly;
                 align-items: flex-start;
                 padding: 2.5rem 0 4rem 0;
                 border-top: 1px solid #cccccc;
+                overflow-x: auto;
 
                 .category {
                     display: flex;
@@ -168,15 +240,15 @@
                     gap: 1.5rem;
                     font-size: 0.9rem;
                     position: relative;
-                    width: 10rem;
-                    padding-left: 2rem;
+                    padding-left: 3rem;
+                    padding-right: 2rem;
 
                     &:not(:last-child)::after {
                         content: '';
                         height: 17rem;
                         width: 1px;
                         position: absolute;
-                        right: -50px;
+                        right: 0;
                         top: 0;
                         background-color: #cccccc;
                     }
@@ -184,6 +256,10 @@
                     .title {
                         font-weight: 500;
                         margin-bottom: 1rem;
+                    }
+
+                    a {
+                        width: 10rem;
                     }
                 }
             }
@@ -199,6 +275,80 @@
 
                 a {
                     color: white;
+                }
+            }
+        }
+    }
+}
+
+.menu-hidden {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: all 0.5s ease-out;
+}
+
+.menu-visible {
+    max-height: 40rem;
+    opacity: 1;
+    transition: all 0.5s ease-in;
+}
+
+@media screen and (max-width: 1250px) {
+    .header {
+        .fixed-bar {
+            .header-top {
+                width: 80%;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 850px) {
+    .header {
+        .fixed-bar {
+            .header-top {
+                width: 80%;
+                flex-direction: column;
+                gap: 1.5rem;
+
+                ul {
+                    width: 20rem;
+                    justify-content: space-between;
+                    padding: 0 0.6rem;
+
+                    .admin-dropdown {
+                        width: 7rem;
+                    }
+
+                    .user-dropdown {
+                        width: 8rem;
+                    }
+                }
+            }
+        }
+
+        .logo {
+            margin-top: 9rem;
+        }
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .header {
+        .nav {
+            width: 100%;
+            align-items: flex-start;
+
+            ul {
+                width: 100%;
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 0.5rem;
+                margin-top: 1rem;
+
+                li {
+                    padding-left: 1rem;
                 }
             }
         }

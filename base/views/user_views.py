@@ -25,7 +25,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         return data
     
 
-class RegisterUser(APIView):
+class RegisterUserAPIView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request, *args, **kwargs):
@@ -45,7 +45,7 @@ class RegisterUser(APIView):
             return Response(message, status=status.HTTP_400_BAD_REQUEST)
 
 
-class UpdateUserProfile(APIView):
+class UpdateUserProfileAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
     def put(self, request, *args, **kwargs):
@@ -66,7 +66,7 @@ class UpdateUserProfile(APIView):
 
 
 
-class GetUserProfile(APIView):
+class GetUserProfileAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
@@ -76,7 +76,7 @@ class GetUserProfile(APIView):
 
 
 
-class GetUsers(APIView):
+class GetUsersAPIView(APIView):
     permission_classes = [IsAdminUser]
 
     def get(self, request, *args, **kwargs):
@@ -100,7 +100,7 @@ class GetUsers(APIView):
 
 
 
-class GetUserById(APIView):
+class GetUserByIdAPIView(APIView):
     permission_classes = [IsAdminUser]
 
     def get(self, request, pk, *args, **kwargs):
@@ -110,7 +110,7 @@ class GetUserById(APIView):
 
 
 
-class UpdateUser(APIView):
+class UpdateUserAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
     def put(self, request, pk, *args, **kwargs):
@@ -129,7 +129,7 @@ class UpdateUser(APIView):
 
 
 
-class DeleteUser(APIView):
+class DeleteUserAPIView(APIView):
     permission_classes = [IsAdminUser]
 
     def delete(self, request, pk, *args, **kwargs):
@@ -138,7 +138,7 @@ class DeleteUser(APIView):
         return Response('User has been successfully removed')
 
 
-class SendEmail(APIView):
+class SendEmailAPIView(APIView):
     def post(self, request, *args, **kwargs):
         user = request.data.get('user', {})
         firstname = user.get('firstname')

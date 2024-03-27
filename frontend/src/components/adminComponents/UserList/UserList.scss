@@ -17,35 +17,68 @@
         width: 100%;
     }
 
-    .users-table {
+    .users-table-container {
         width: 100%;
 
-        thead {
-            th {
-                height: 4rem;
+        .users-table {
+            width: 100%;
+
+            thead {
+                th {
+                    height: 4rem;
+                }
+            }
+
+            tbody {
+                text-align: center;
+                align-items: center;
+
+                td {
+                    height: 4rem;
+                }
+
+                button {
+                    padding: 0.8rem;
+                    outline: none;
+                    border: none;
+                    border-radius: 2px;
+                    font-size: 0.7rem;
+                    background-color: transparent;
+                    font-size: 1rem;
+                }
+
+                .delete {
+                    color: red;
+                }
             }
         }
+    }
 
-        tbody {
-            text-align: center;
-            align-items: center;
+    .pagination {
+        justify-content: center;
+    }
+}
 
-            td {
-                height: 4rem;
-            }
+@media screen and (max-width: 1250px) {
+    .userlist {
+        width: 80%;
+    }
+}
 
-            button {
-                padding: 0.8rem;
-                outline: none;
-                border: none;
-                border-radius: 2px;
-                font-size: 0.7rem;
-                background-color: transparent;
-                font-size: 1rem;
-            }
+@media screen and (max-width: 1000px) {
+    .userlist {
+        width: 90%;
+    }
+}
 
-            .delete {
-                color: red;
+@media screen and (max-width: 800px) {
+    .userlist {
+        .users-table-container {
+            overflow-x: scroll;
+
+            .users-table {
+                width: 50rem;
+                align-self: flex-start;
             }
         }
     }

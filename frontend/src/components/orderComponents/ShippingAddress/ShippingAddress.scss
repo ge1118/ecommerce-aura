@@ -49,3 +49,27 @@
         }
     }
 }
+
+@media screen and (max-width: 1200px) {
+    .shippingaddress {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .shippingaddress {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 540px) {
+    .shippingaddress {
+        .register-form {
+            width: 100%;
+
+            input {
+                width: 100%;
+            }
+        }
+    }
+}

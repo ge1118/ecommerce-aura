@@ -80,8 +80,10 @@ const PlaceOrder = () => {
                             </Message> : (
                                 cart.cartItems.map((item, i) => (
                                     <div className="item" key={i}>
-                                        <img src={item.image} alt={item.name}></img>
-                                        <Link to={`/product/${item.product}`}>{item.name}</Link>
+                                        <div>
+                                            <img src={item.image} alt={item.name}></img>
+                                            <Link to={`/product/${item.product}`}>{item.name}</Link>
+                                        </div>
 
                                         <p>{item.qty} X ${item.price} = ${(item.qty * item.price).toFixed(2)}</p>
                                     </div>

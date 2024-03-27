@@ -37,73 +37,58 @@ const Cart = () => {
             <h1>Shopping cart</h1>
             <hr />
 
-            <table>
-                <thead>
-                    <tr>
-                        <th width='70%'>Item</th>
-                        <th width='10%'>Price</th>
-                        <th width='10%'>Qty</th>
-                        <th width='10%'></th>
-                    </tr>
-                </thead>
+            <div className='cart-items'>
+                {
+                    itemId.length === 0
+                        ? (
+                            <p>
+                                Your Cart Is Empty
+                            </p>
+                        )
+                        : (
+                            cartItems.map(item => (
+                                <div className='cart-item' key={item._id}>
+                                    <div className='item-name'>
+                                        <img src={item.image} alt={item.name} />
+                                        <Link to={`/product/${item.product}`}>{item.name}</Link>
+                                    </div>
 
-                <tbody>
-                    {
-                        itemId.length === 0
-                            ? (
-                                <tr>
-                                    <td>
-                                        Your Cart Is Empty
-                                    </td>
-                                </tr>
-                            )
-                            : (
-                                cartItems.map(item => (
-                                    <tr key={item.product} className='item'>
-                                        <td>
-                                            <div className='item-name'>
-                                                <img src={item.image} alt={item.name} />
-                                                <Link to={`/product/${item.product}`}>{item.name}</Link>
-                                            </div>
-                                        </td>
+                                    <div className='item-info'>
+                                        <div>${(item.price * item.qty).toFixed(2)}</div>
 
-                                        <td>${(item.price * item.qty).toFixed(2)}</td>
-
-                                        <td>
-                                            <div className="btn-group">
-                                                <button
-                                                    onClick={(e) =>
-                                                        item.qty !== 1 ?
-                                                            dispatch(addToCart(item.product, Number(item.qty - 1))) :
-                                                            () => { }}>
-                                                    <i className="fa-solid fa-minus"></i>
-                                                </button>
-                                                <input type="text" value={item.qty} onChange={(e) => dispatch(addToCart(item.product, Number(e.target.value)))} />
-                                                <button onClick={(e) =>
-                                                    item.qty !== item.countInStock ?
-                                                        dispatch(addToCart(item.product, Number(item.qty + 1))) :
+                                        <div className="btn-group">
+                                            <button
+                                                onClick={(e) =>
+                                                    item.qty !== 1 ?
+                                                        dispatch(addToCart(item.product, Number(item.qty - 1))) :
                                                         () => { }}>
-                                                    <i className="fa-solid fa-plus"></i>
-                                                </button>
-                                            </div>
-                                        </td>
+                                                <i className="fa-solid fa-minus"></i>
+                                            </button>
+                                            <input type="text" value={item.qty} onChange={(e) => dispatch(addToCart(item.product, Number(e.target.value)))} />
+                                            <button onClick={(e) =>
+                                                item.qty !== item.countInStock ?
+                                                    dispatch(addToCart(item.product, Number(item.qty + 1))) :
+                                                    () => { }}>
+                                                <i className="fa-solid fa-plus"></i>
+                                            </button>
+                                        </div>
 
-                                        <td className='delete' onClick={() => removeFromCartHandler(item.product)}>
+                                        <button className='delete' onClick={() => removeFromCartHandler(item.product)}>
                                             <i className="fa-solid fa-x"></i>
-                                        </td>
-                                    </tr>
-                                )))
-                    }
+                                        </button>
+                                    </div>
+                                </div>
+                            )))
+                }
 
-                    <tr className='subtotal'>
-                        <td>Subtotal:</td>
-                        <td>${cartItems.reduce((acc, item) => acc + item.qty * item.price, 0).toFixed(2)}</td>
-                        <td>
-                            <button onClick={checkoutHandler} disabled={cartItems.length === 0}>Checkout</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                <div className='subtotal'>
+                    <div>
+                        <p>Subtotal:</p>
+                        <p>${cartItems.reduce((acc, item) => acc + item.qty * item.price, 0).toFixed(2)}</p>
+                    </div>
+                    <button onClick={checkoutHandler} disabled={cartItems.length === 0}>Checkout</button>
+                </div>
+            </div>
         </div>
     )
 }

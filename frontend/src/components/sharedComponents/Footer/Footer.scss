@@ -98,3 +98,140 @@
         }
     }
 }
+
+@media screen and (max-width: 1500px) {
+    .footer-bg {
+        .footer {
+            width: 70%;
+        }
+    }
+}
+
+@media screen and (max-width: 1300px) {
+    .footer-bg {
+        .footer {
+            width: 80%;
+        }
+    }
+}
+
+@media screen and (max-width: 1100px) {
+    .footer-bg {
+        .footer {
+            width: 90%;
+        }
+    }
+}
+
+@media screen and (max-width: 1100px) {
+    .footer-bg {
+        .footer {
+            .newsletter {
+                .input-name {
+                    input {
+                        width: 13rem !important;
+                    }
+                }
+
+                .input-email {
+                    input {
+                        width: 18rem !important;
+                    }
+
+                    button {
+                        width: 8rem !important;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .footer-bg {
+        .footer {
+            .footer-items {
+                flex-direction: column;
+                gap: 4rem;
+
+                .quick-links,
+                .catalog {
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 3rem;
+
+                    h4 {
+                        font-weight: 500;
+                    }
+                }
+
+                .newsletter {
+                    width: 100% !important;
+
+                    .input-name,
+                    .input-email {
+                        flex-direction: column;
+                        width: 100%;
+
+                        input {
+                            width: 100% !important;
+                        }
+
+                        button {
+                            width: 100% !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 780px) {
+    .footer-bg {
+        .footer {
+            .footer-items {
+
+                .quick-links,
+                .catalog {
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 2rem;
+
+                    h4 {
+                        font-weight: 500;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .footer-bg {
+        .footer {
+            .footer-items {
+
+                .catalog {
+                    display: none;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .footer-bg {
+        .footer {
+            .footer-items {
+
+                .quick-links {
+                    flex-direction: column;
+                    gap: 1rem;
+                }
+            }
+        }
+    }
+}

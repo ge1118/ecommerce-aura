@@ -74,40 +74,42 @@ const ProductList = () => {
                 error ? <Message bgcolor='#ca7e7e' txtcolor='#fff'>{error}</Message> :
                     (
                         <>
-                            <table className="products-table">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>NAME</th>
-                                        <th>PRICE</th>
-                                        <th>CATEGORY</th>
-                                        <th>BRAND</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
+                            <div className='products-table-container'>
+                                <table className="products-table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>NAME</th>
+                                            <th>PRICE</th>
+                                            <th>CATEGORY</th>
+                                            <th>BRAND</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
 
-                                <tbody>
-                                    {
-                                        products.map(product => (
-                                            <tr key={product._id}>
-                                                <td>{product._id}</td>
-                                                <td>{product.name}</td>
-                                                <td>{product.price}</td>
-                                                <td>{product.category}</td>
-                                                <td>{product.brand}</td>
-                                                <td>
-                                                    <button className='edit' onClick={() => navigate(`/admin/product/${product._id}/edit`)}>
-                                                        <i className='fas fa-edit'></i>
-                                                    </button>
-                                                    <button className='delete' onClick={() => deleteHandler(product._id)}>
-                                                        <i className='fas fa-trash'></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        ))
-                                    }
-                                </tbody>
-                            </table>
+                                    <tbody>
+                                        {
+                                            products.map(product => (
+                                                <tr key={product._id}>
+                                                    <td>{product._id}</td>
+                                                    <td>{product.name}</td>
+                                                    <td>{product.price}</td>
+                                                    <td>{product.category}</td>
+                                                    <td>{product.brand}</td>
+                                                    <td>
+                                                        <button className='edit' onClick={() => navigate(`/admin/product/${product._id}/edit`)}>
+                                                            <i className='fas fa-edit'></i>
+                                                        </button>
+                                                        <button className='delete' onClick={() => deleteHandler(product._id)}>
+                                                            <i className='fas fa-trash'></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            ))
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
                             <Paginate pages={pages} page={page} isAdmin={true} adminmenu={'product'} />
                         </>
                     )

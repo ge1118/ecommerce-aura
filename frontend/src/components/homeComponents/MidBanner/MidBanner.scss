@@ -39,3 +39,69 @@
         }
     }
 }
+
+@media screen and (max-width: 1500px) {
+    .midbanner {
+        height: 35rem;
+    }
+}
+
+@media screen and (max-width: 1250px) {
+    .midbanner {
+        height: 30rem;
+    }
+}
+
+@media screen and (max-width: 1150px) {
+    .midbanner {
+        height: 25rem;
+
+        h1 {
+            font-size: 2.5rem;
+        }
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .midbanner {
+        height: 20rem;
+
+        .bannerslogan {
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .midbanner {
+        height: 15rem;
+
+        .bannerslogan {
+            h1 {
+                font-size: 1.6rem;
+            }
+
+            h2 {
+                font-size: 1rem;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .midbanner {
+        height: 12rem;
+
+        .bannerslogan {
+            h1 {
+                font-size: 1.4rem;
+            }
+
+            h2 {
+                font-size: 0.9rem;
+            }
+        }
+    }
+}

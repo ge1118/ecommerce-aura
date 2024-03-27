@@ -5,6 +5,7 @@
     margin: 0;
     padding: 0;
     font-family: 'Montserrat', sans-serif;
+    // overflow-x: hidden;
 }
 
 .page {
@@ -20,4 +21,23 @@ a {
 
 button {
     cursor: pointer;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #929292;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #929292;
 }

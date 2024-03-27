@@ -6,10 +6,59 @@
     background-size: 100% 45rem;
     background-repeat: no-repeat;
     height: 45rem;
+    background-size: cover;
 
     h1 {
         font-size: 3rem;
         font-weight: 400;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+}
+
+@media screen and (max-width: 1500px) {
+    .faqbanner {
+        height: 35rem;
+    }
+}
+
+@media screen and (max-width: 1250px) {
+    .faqbanner {
+        height: 30rem;
+    }
+}
+
+@media screen and (max-width: 1150px) {
+    .faqbanner {
+        height: 25rem;
+
+        h1 {
+            font-size: 2.5rem;
+        }
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .faqbanner {
+        height: 20rem;
+
+        h1 {
+            font-size: 2rem;
+        }
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .faqbanner {
+        height: 15rem;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .faqbanner {
+        height: 12rem;
+
+        h1 {
+            font-size: 1.6rem;
+        }
     }
 }

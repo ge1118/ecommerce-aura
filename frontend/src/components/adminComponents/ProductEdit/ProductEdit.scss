@@ -81,3 +81,41 @@
         }
     }
 }
+
+@media screen and (max-width: 1000px) {
+    .productedit {
+        a {
+            padding-left: 2rem;
+        }
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .productedit {
+        width: 80%;
+
+        a {
+            padding-left: 0rem;
+        }
+    }
+}
+
+@media screen and (max-width: 580px) {
+    .productedit {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 580px) {
+    .productedit {
+        .product-edit-form {
+            width: 100%;
+
+            input,
+            select,
+            textarea {
+                width: 100%;
+            }
+        }
+    }
+}

@@ -78,31 +78,96 @@
                 align-self: center;
             }
 
-            .order-table {
-                thead {
-                    th {
-                        height: 4rem;
+            .order-table-container {
+                width: 100%;
+
+                .order-table {
+                    width: 100%;
+
+                    thead {
+                        th {
+                            height: 4rem;
+                        }
+                    }
+
+                    tbody {
+                        text-align: center;
+                        align-items: center;
+
+                        td {
+                            height: 4rem;
+                        }
+
+                        button {
+                            background: black;
+                            color: white;
+                            padding: 0.8rem 1.2rem;
+                            outline: none;
+                            border: none;
+                            border-radius: 2px;
+                            font-size: 0.7rem;
+                            cursor: pointer;
+                        }
                     }
                 }
+            }
 
-                tbody {
-                    text-align: center;
-                    align-items: center;
+            .pagination {
+                align-self: center;
+                margin-top: 3rem;
+            }
+        }
+    }
+}
 
-                    td {
-                        height: 4rem;
+@media screen and (max-width: 1450px) {
+    .profile {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 1250px) {
+    .profile {
+        width: 90%;
+
+        .user-profile {
+            gap: 1rem;
+        }
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .profile {
+        .user-profile {
+            flex-direction: column;
+            gap: 5rem;
+        }
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .profile {
+        .user-profile {
+            .order-history {
+                .order-table-container {
+                    overflow-x: scroll;
+
+                    .order-table {
+                        width: 50rem;
+                        align-self: flex-start;
                     }
+                }
+            }
+        }
+    }
+}
 
-                    button {
-                        background: black;
-                        color: white;
-                        padding: 0.8rem 1.2rem;
-                        outline: none;
-                        border: none;
-                        border-radius: 2px;
-                        font-size: 0.7rem;
-                        cursor: pointer;
-                    }
+@media screen and (max-width: 500px) {
+    .profile {
+        .user-profile {
+            .user-info {
+                .update-form {
+                    width: 100%;
                 }
             }
         }

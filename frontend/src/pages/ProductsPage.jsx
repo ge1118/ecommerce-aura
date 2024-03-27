@@ -1,5 +1,5 @@
 import React from 'react'
-import ProductsList from '../components/productComponents/ProductsList/ProductsList'
+import ProductsList from '../components/sharedComponents/ProductsList/ProductsList'
 
 const ProductsPage = ({ title }) => {
     return (

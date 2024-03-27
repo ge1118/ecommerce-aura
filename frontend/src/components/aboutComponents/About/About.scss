@@ -7,7 +7,17 @@
     gap: 4rem;
     margin: 3rem 0;
 
+    .about-img {
+        flex: 1;
+
+        img {
+            height: auto;
+            max-width: 100%;
+        }
+    }
+
     .aboutus {
+        flex: 1;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -27,6 +37,51 @@
             line-height: 200%;
             font-size: 0.9rem;
             width: 90%;
+        }
+    }
+}
+
+@media screen and (max-width: 1500px) {
+    .about {
+        width: 75%;
+        margin: 1.5rem 0;
+    }
+}
+
+@media screen and (max-width: 1250px) {
+    .about {
+        width: 85%;
+    }
+}
+
+@media screen and (max-width: 1150px) {
+    .about {
+        width: 85%;
+    }
+}
+
+@media screen and (max-width: 1050px) {
+    .about {
+        width: 90%;
+        gap: 2rem;
+    }
+}
+
+@media screen and (max-width: 1050px) {
+    .about {
+        flex-direction: column;
+        width: 90%;
+        gap: 4rem;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .about {
+        .aboutus {
+            p {
+                line-height: 170%;
+                width: 100%;
+            }
         }
     }
 }

@@ -3,6 +3,7 @@ import './Header.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { logout } from '../../../actions/userActions'
+import { categoriesData } from '../../../assets/data/categoriesData'
 
 const Header = () => {
 
@@ -20,9 +21,19 @@ const Header = () => {
         dispatch(logout());
     };
 
+    const [isNarrow, setIsNarrow] = useState(window.innerWidth <= 650);
     const [isMenuVisible, setIsMenuVisible] = useState(false);
+    const [isCategoryVisible, setIsCategoryVisible] = useState(false);
     const [isAdminVisible, setIsAdminVisible] = useState(false);
     const [isUserVisible, setIsUserVisible] = useState(false);
+
+    const [visibilityStates, setVisibilityStates] = useState({
+        isMakeupVisible: false,
+        isBathVisible: false,
+        isSkincareVisible: false,
+        isHairVisible: false,
+        isWellnessVisible: false,
+    });
 
     const handleAdminMenuClick = (e) => {
         e.stopPropagation();
@@ -34,18 +45,46 @@ const Header = () => {
         setIsUserVisible(prev => !prev);
     };
 
+    const toggleVisibility = (categoryKey) => {
+        setVisibilityStates(prevStates => ({
+            ...prevStates,
+            [categoryKey]: !prevStates[categoryKey]
+        }));
+    };
+
+    const mobileMenuClose = () => {
+        setIsMenuVisible(false);
+        setIsCategoryVisible(false);
+        setVisibilityStates({
+            isMakeupVisible: false,
+            isBathVisible: false,
+            isSkincareVisible: false,
+            isHairVisible: false,
+            isWellnessVisible: false,
+        });
+    };
+
     useEffect(() => {
         const handleClickOutside = () => {
             setIsAdminVisible(false);
             setIsUserVisible(false);
         };
 
+        const handleResize = () => {
+            setIsNarrow(window.innerWidth < 650);
+        };
+
         document.addEventListener('click', handleClickOutside);
+        window.addEventListener('resize', handleResize);
+
+        handleResize();
+        mobileMenuClose();
 
         return () => {
             document.removeEventListener('click', handleClickOutside);
+            window.removeEventListener('resize', handleResize);
         };
-    }, []);
+    }, [location]);
 
     const submitHandler = (e) => {
         if (keyword && location.pathname.startsWith('/products')) {
@@ -122,7 +161,6 @@ const Header = () => {
                         }
                     </ul>
                 </div>
-
             </div>
 
             <div className="logo" onClick={() => navigate('/')}>
@@ -132,90 +170,121 @@ const Header = () => {
             </div>
 
             <div className='nav'>
-                <ul>
-                    <li>
-                        <Link to='/'>HOME</Link>
-                    </li>
-                    <li
-                        onMouseOver={(e) => { setIsMenuVisible(true) }}
-                        onMouseLeave={(e) => { setIsMenuVisible(false) }}
+                {
+                    isNarrow ?
+                        <>
+                            <div className='mobile-menu' onClick={(e) => setIsMenuVisible(prev => !prev)}>
+                                <i className="fa-solid fa-bars"></i>
+                                MENU
+                            </div>
+                            {
+                                <ul className={isMenuVisible ? 'menu-visible' : 'menu-hidden'}>
+                                    <li onClick={mobileMenuClose}>
+                                        <Link to='/'>HOME</Link>
+                                    </li>
+                                    <li>
+                                        <Link to='/products' onClick={mobileMenuClose}>
+                                            SHOP
+                                        </Link>
+                                        <i className="fa-solid fa-angle-down" onClick={(e) => setIsCategoryVisible(prev => !prev)}></i>
+                                    </li>
+                                    <ul className={`narrow-dropdown-category ${isNarrow && isCategoryVisible ? 'menu-visible' : 'menu-hidden'}`}>
+                                        {
+                                            categoriesData.map((category) => (
+                                                <React.Fragment key={category.name}>
+                                                    <li>
+                                                        <Link
+                                                            className="title"
+                                                            to={category.url}
+                                                            onClick={mobileMenuClose}
+                                                        >
+                                                            {category.name}
+                                                        </Link>
+                                                        <i className="fa-solid fa-angle-down" onClick={() => toggleVisibility(category.isVisible)}></i>
+                                                    </li>
+                                                    <ul className={`narrow-dropdown-subcategory ${visibilityStates[category.isVisible] ? 'menu-visible' : 'menu-hidden'}`}>
+                                                        {category.subcategories.map((sub) => (
+                                                            <li key={sub.name}
+                                                                onClick={mobileMenuClose}>
+                                                                <Link to={sub.url}>{sub.name}</Link>
+                                                            </li>
+                                                        ))}
+                                                    </ul>
+                                                </React.Fragment>
+                                            ))
+                                        }
+                                        <Link to='/products/new' className='newarrivals' onClick={mobileMenuClose}>
+                                            <li>
+                                                Check out our new arrivals!
+                                            </li>
+                                        </Link>
+                                    </ul>
+                                    <li onClick={mobileMenuClose}>
+                                        <Link to='/faq'>FAQ</Link>
+                                    </li>
+                                    <li onClick={mobileMenuClose}>
+                                        <Link to='/about'>OUR STORY</Link>
+                                    </li>
+                                    <li onClick={mobileMenuClose}>
+                                        <Link to='/contact'>CONTACT</Link>
+                                    </li>
+                                </ul>
+                            }
+                        </>
+                        :
+                        <ul>
+                            <li>
+                                <Link to='/'>HOME</Link>
+                            </li>
+                            <li
+                                onMouseOver={(e) => { setIsCategoryVisible(true) }}
+                                onMouseLeave={(e) => { setIsCategoryVisible(false) }}
+                            >
+                                <Link to='/products' onClick={(e) => setIsCategoryVisible(true)}>
+                                    SHOP  <i className="fa-solid fa-angle-down"></i>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to='/faq'>FAQ</Link>
+                            </li>
+                            <li>
+                                <Link to='/about'>OUR STORY</Link>
+                            </li>
+                            <li>
+                                <Link to='/contact'>CONTACT</Link>
+                            </li>
+                        </ul>
+                }
+
+                {
+                    !isNarrow &&
+                    <div
+                        className={`dropdown ${isCategoryVisible ? 'visible' : 'hidden'}`}
+                        onMouseOver={(e) => { setIsCategoryVisible(true) }}
+                        onMouseLeave={(e) => { setIsCategoryVisible(false) }}
                     >
-                        <Link to='/products'>
-                            SHOP  <i className="fa-solid fa-angle-down"></i>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to='/faq'>FAQ</Link>
-                    </li>
-                    {/* <li>
-                        <Link to='/blog'>BLOG</Link>
-                    </li> */}
-                    <li>
-                        <Link to='/about'>OUR STORY</Link>
-                    </li>
-                    <li>
-                        <Link to='/contact'>CONTACT</Link>
-                    </li>
-                </ul>
+                        <div className="dropdown-items">
+                            {
+                                categoriesData.map(category => (
+                                    <div className="category" key={category.name}>
+                                        <Link className="title" to={category.url}>{category.name}</Link>
 
-                <div
-                    className={`dropdown ${isMenuVisible ? 'visible' : 'hidden'}`}
-                    onMouseOver={(e) => { setIsMenuVisible(true) }}
-                    onMouseLeave={(e) => { setIsMenuVisible(false) }}
-                >
-                    <div className="dropdown-items">
-                        <div className="category makeup">
-                            <Link className="title" to='/products/makeup'>Makeup</Link>
-
-                            <Link to='products/makeup/blush'>Blush</Link>
-                            <Link to='products/makeup/eyes+brows'>Eyes + Brows</Link>
-                            <Link to='products/makeup/foundation'>Foundation</Link>
-                            <Link to='products/makeup/lips'>Lips</Link>
-                            <Link to='products/makeup/brushes'>Makeup Brushes</Link>
+                                        {
+                                            category.subcategories.map(sub => (
+                                                <Link to={sub.url} key={sub.name}>{sub.name}</Link>
+                                            ))
+                                        }
+                                    </div>
+                                ))
+                            }
                         </div>
 
-                        <div className="category bathbody">
-                            <Link className="title" to='/products/bath+body'>Bath + Body</Link>
-
-                            <Link to='/products/bath+body/body-lotion'>Body Lotion</Link>
-                            <Link to='/products/bath+body/body-wash'>Body Wash</Link>
-                            <Link to='/products/bath+body/hand-cream'>Hand Cream</Link>
-                            <Link to='/products/bath+body/fragrance'>Fragrance</Link>
-                            <Link to='/products/bath+body/soap'>Soap</Link>
-                        </div>
-
-                        <div className="category skincare">
-                            <Link className="title" to='/products/skincare'>Skincare</Link>
-
-                            <Link to='/products/skincare/cleansers'>Cleansers</Link>
-                            <Link to='/products/skincare/masks+exfoliants'>Masks + Exfoliants</Link>
-                            <Link to='/products/skincare/moisturizers'>Moisturizers</Link>
-                            <Link to='/products/skincare/oils+serums'>Oils + Serums</Link>
-                            <Link to='/products/skincare/toners'>Toners</Link>
-                        </div>
-
-                        <div className="category hairnails">
-                            <Link className="title" to='/products/hair+nails'>Hair + Nails</Link>
-
-                            <Link to='/products/hair+nails/conditioner'>Conditioner</Link>
-                            <Link to='/products/hair+nails/nails'>Nails</Link>
-                            <Link to='/products/hair+nails/shampoo'>Shampoo</Link>
-                            <Link to='/products/hair+nails/treatment+styling'>Treatment + Styling</Link>
-                        </div>
-
-                        <div className="category wellness">
-                            <Link className="title" to='/products/wellness'>Wellness</Link>
-
-                            <Link to='/products/wellness/candles'>Candles</Link>
-                            <Link to='/products/wellness/edible-beauty'>Edible Beauty</Link>
-                            <Link to='/products/wellness/cleaning'>Cleaning</Link>
+                        <div className="newarrivals">
+                            <Link to='/products/new'>Check out our new arrivals!</Link>
                         </div>
                     </div>
+                }
 
-                    <div className="newarrivals">
-                        <Link to='/products/new'>Check out our new arrivals!</Link>
-                    </div>
-                </div>
             </div>
         </div >
     )

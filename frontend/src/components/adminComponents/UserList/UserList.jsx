@@ -48,46 +48,48 @@ const UserList = () => {
                 error ? <Message bgcolor='#ca7e7e' txtcolor='#fff'>{error}</Message> :
                     (
                         <>
-                            <table className="users-table">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>NAME</th>
-                                        <th>EMAIL</th>
-                                        <th>ADMIN</th>
-                                        <th></th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
+                            <div className='users-table-container'>
+                                <table className="users-table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>NAME</th>
+                                            <th>EMAIL</th>
+                                            <th>ADMIN</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
 
-                                <tbody>
-                                    {
-                                        users.map(user => (
-                                            <tr key={user._id}>
-                                                <td>{user._id}</td>
-                                                <td>{user.name}</td>
-                                                <td>{user.email}</td>
-                                                <td>
-                                                    {user.isAdmin ?
-                                                        <i className='fas fa-check' style={{ color: 'green' }}></i> :
-                                                        <i className='fas fa-times' style={{ color: 'red' }}></i>
-                                                    }
-                                                </td>
-                                                <td>
-                                                    <button className='edit' onClick={() => navigate(`/admin/user/${user._id}/edit`)}>
-                                                        <i className='fas fa-edit'></i>
-                                                    </button>
-                                                </td>
-                                                <td>
-                                                    <button className='delete' onClick={() => deleteHandler(user._id)}>
-                                                        <i className='fas fa-trash'></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        ))
-                                    }
-                                </tbody>
-                            </table>
+                                    <tbody>
+                                        {
+                                            users.map(user => (
+                                                <tr key={user._id}>
+                                                    <td>{user._id}</td>
+                                                    <td>{user.name}</td>
+                                                    <td>{user.email}</td>
+                                                    <td>
+                                                        {user.isAdmin ?
+                                                            <i className='fas fa-check' style={{ color: 'green' }}></i> :
+                                                            <i className='fas fa-times' style={{ color: 'red' }}></i>
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        <button className='edit' onClick={() => navigate(`/admin/user/${user._id}/edit`)}>
+                                                            <i className='fas fa-edit'></i>
+                                                        </button>
+                                                    </td>
+                                                    <td>
+                                                        <button className='delete' onClick={() => deleteHandler(user._id)}>
+                                                            <i className='fas fa-trash'></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            ))
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
                             <Paginate pages={pages} page={page} isAdmin={true} adminmenu={'user'} />
                         </>
                     )
