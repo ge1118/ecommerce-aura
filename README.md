@@ -15,6 +15,7 @@ Feel free to register an account, explore various products, and order what you w
 - Shopping Cart: Allows users to add products to a cart, adjust quantities, and remove items as needed before checkout.
 - Order and Payment: Supports processing orders and secure payment transactions, integration with PayPal for providing users with a smooth and secure checkout experience.
 - Admin Panels: Comprehensive management interface for users, orders, and products. Admins can also assign user roles, edit products, and update order statuses.
+- Responsive Design: Ensures a seamless and user-friendly interface across all devices, providing an optimal viewing and interaction experience for desktop, tablet, and mobile users.
 
 ## Technologies
 - Frontend: React, Redux, SCSS
