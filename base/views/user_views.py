@@ -11,6 +11,9 @@ from django.core.mail import send_mail
 from backend.settings import EMAIL_HOST_USER
 from base.serializers import UserSerializer, UserSerializerWithToken
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from django.db.models import Q
+from django.db import IntegrityError
+
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -50,20 +53,26 @@ class UpdateUserProfileAPIView(APIView):
 
     def put(self, request, *args, **kwargs):
         user = request.user
-        serializer = UserSerializerWithToken(user, many=False)
-
         data = request.data
-        user.first_name = data['name']
-        user.username = data['email']
-        user.email = data['email']
 
-        if data['password'] != '':
-            user.password = make_password(data['password'])
+        try:
+            if 'email' in data:
+                if user.email != data['email'] and User.objects.filter(email=data['email']).exists():
+                    return Response({'detail': 'This email is already in use.'}, status=400)
 
-        user.save()
+            user.first_name = data['name']
+            user.username = data['email']
+            user.email = data['email']
 
-        return Response(serializer.data)
+            if data['password'] != '':
+                user.password = make_password(data['password'])
 
+            user.save()
+            
+            serializer = UserSerializerWithToken(user, many=False)
+            return Response(serializer.data)
+        except IntegrityError as e:
+            return Response({'detail': 'An unexpected error occurred. Please try again later.'}, status=500)   
 
 
 class GetUserProfileAPIView(APIView):
@@ -75,16 +84,25 @@ class GetUserProfileAPIView(APIView):
         return Response(serializer.data)
 
 
-
 class GetUsersAPIView(APIView):
     permission_classes = [IsAdminUser]
 
     def get(self, request, *args, **kwargs):
-        users = User.objects.all().order_by('id')
+        query = request.query_params.get('keyword') or ''
+        page = request.query_params.get('page') or 1
+        order_by = request.query_params.get('order') or 'id'
 
-        page = request.query_params.get('page')
+        users = User.objects.all().order_by(order_by)
+ 
+        if query: 
+            users = users.filter(
+                Q(first_name__icontains=query) |
+                Q(email__icontains=query)
+            )
+
+        message = 'No User Found' if not users.exists() else ''
+
         paginator = Paginator(users, 24)
-
         try:
             users = paginator.page(page)
         except PageNotAnInteger:
@@ -96,18 +114,20 @@ class GetUsersAPIView(APIView):
             page = 1
 
         serializer = UserSerializer(users, many=True)
-        return Response({'users': serializer.data, 'page': page, 'pages': paginator.num_pages})
-
+        return Response({'users': serializer.data, 'page': page, 'pages': paginator.num_pages, 'message': message})
 
 
 class GetUserByIdAPIView(APIView):
     permission_classes = [IsAdminUser]
 
     def get(self, request, pk, *args, **kwargs):
-        user = User.objects.get(id=pk)
-        serializer = UserSerializer(user, many=False)
-        return Response(serializer.data)
-
+        try:
+            user = User.objects.get(id=pk)
+            serializer = UserSerializer(user, many=False)
+            return Response(serializer.data)
+        except:            
+            message = {'detail': 'An error has been occured. Please try again.'}
+            return Response(message, status=status.HTTP_400_BAD_REQUEST)
 
 
 class UpdateUserAPIView(APIView):
@@ -126,7 +146,6 @@ class UpdateUserAPIView(APIView):
         serializer = UserSerializer(user, many=False)
 
         return Response(serializer.data)
-
 
 
 class DeleteUserAPIView(APIView):

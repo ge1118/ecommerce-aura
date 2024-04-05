@@ -7,6 +7,30 @@
     gap: 1rem;
     width: 65%;
 
+    .list-header {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        margin: 0.5rem;
+        align-items: flex-start;
+
+        form {
+            align-self: flex-start;
+
+            input {
+                outline: none;
+                border: 1px solid #cccccc;
+                padding: 0.6rem 0.8rem;
+                padding-left: 3rem;
+                width: 20rem;
+                background-image: url('../../../assets/images/search.png');
+                background-repeat: no-repeat;
+                background-size: 18px;
+                background-position: 14px center;
+            }
+        }
+    }
+
     h1 {
         font-size: 1.5rem;
         font-weight: normal;
@@ -18,7 +42,7 @@
     }
 
     button {
-        margin: 1rem;
+        margin: auto 0;
         font-size: 1rem;
         background: transparent;
         border: none;
@@ -26,7 +50,6 @@
         display: flex;
         gap: 1rem;
         align-items: center;
-        align-self: flex-end;
         margin-right: 3rem;
         cursor: pointer;
     }
@@ -40,6 +63,7 @@
             thead {
                 th {
                     height: 4rem;
+                    cursor: pointer;
                 }
             }
 
@@ -110,6 +134,31 @@
             .products-table {
                 width: 50rem;
                 align-self: flex-start;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .productlist {
+
+        .list-header {
+            flex-direction: column;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+    }
+}
+
+@media screen and (max-width: 370px) {
+    .productlist {
+        .list-header {
+            form {
+                width: 100%;
+
+                input {
+                    width: 100%;
+                }
             }
         }
     }

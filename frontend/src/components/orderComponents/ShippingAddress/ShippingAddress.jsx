@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { saveShippingAddress } from '../../../actions/cartActions'
@@ -8,7 +8,7 @@ import CheckoutSteps from '../../sharedComponents/CheckoutSteps/CheckoutSteps'
 const ShippingAddress = () => {
 
     const cart = useSelector(state => state.cart);
-    const { shippingAddress } = cart;
+    const { cartItems, shippingAddress } = cart;
 
     const [address, setAddress] = useState(shippingAddress.address);
     const [city, setCity] = useState(shippingAddress.city);
@@ -18,11 +18,23 @@ const ShippingAddress = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    const userLogin = useSelector(state => state.userLogin);
+    const { userInfo } = userLogin;
+
     const submitHandler = (e) => {
         e.preventDefault();
         dispatch(saveShippingAddress({ address, city, postalCode, country }));
         navigate('/payment');
     };
+
+    useEffect(() => {
+        if (!userInfo) {
+            navigate('/login');
+        }
+        if (!cartItems.length === 0) {
+            navigate('/cart')
+        }
+    })
 
     return (
         <div className='shippingaddress'>

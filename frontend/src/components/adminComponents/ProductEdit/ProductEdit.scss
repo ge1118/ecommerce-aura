@@ -17,13 +17,17 @@
         width: 100%;
     }
 
-    a {
+    .goback {
         align-self: flex-start;
         padding-left: 6rem;
         margin-top: 1rem;
         text-decoration: none;
         color: black;
         font-weight: bold;
+        background: transparent;
+        outline: none;
+        border: none;
+        font-size: 1rem;
     }
 
     .product-edit-form {

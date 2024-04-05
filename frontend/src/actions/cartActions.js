@@ -5,7 +5,7 @@ import {
     CART_REMOVE_ITEM,
     CART_SAVE_SHIPPING_ADDRESS,
     CART_SAVE_PAYMENT_METHOD,
-    CART_CLEAR_ITEMS,
+    MERGE_CART_ITEMS,
 } from '../constants/cartConstants'
 
 
@@ -18,7 +18,22 @@ export const addToCart = (id, qty) => async (dispatch, getState) => {
         }
     })
 
-    localStorage.setItem('cartItemId', JSON.stringify(getState().saveCartItemId.itemId))
+    const { saveCartItemId: { itemId }, userLogin: { userInfo } } = getState()
+
+    if (userInfo && userInfo.email) {
+        const userCartKey = `cartItems_${userInfo.email}`
+        localStorage.setItem(userCartKey, JSON.stringify(itemId))
+    } else {
+        localStorage.setItem('cartItems_generic', JSON.stringify(itemId))
+    }
+}
+
+
+export const mergeCartItems = (userInfo) => async (dispatch, getState) => {
+    dispatch({
+        type: MERGE_CART_ITEMS,
+        payload: userInfo
+    })
 }
 
 
@@ -28,7 +43,7 @@ export const showCartItems = (id, qty) => async (dispatch, getState) => {
     id = Number(id)
     qty = Number(qty)
 
-    data.onSale ? (
+    if (data.countInStock === 0) {
         dispatch({
             type: CART_SHOW_ITEM,
             payload: {
@@ -36,22 +51,36 @@ export const showCartItems = (id, qty) => async (dispatch, getState) => {
                 name: data.name,
                 image: data.image,
                 price: data.salePrice,
-                countInStock: data.countInStock,
-                qty
-            },
-        })) : (
-        dispatch({
-            type: CART_SHOW_ITEM,
-            payload: {
-                product: data._id,
-                name: data.name,
-                image: data.image,
-                price: data.price,
-                countInStock: data.countInStock,
+                countInStock: 'This item is sold out',
                 qty
             },
         })
-    )
+    } else {
+        data.onSale ? (
+            dispatch({
+                type: CART_SHOW_ITEM,
+                payload: {
+                    product: data._id,
+                    name: data.name,
+                    image: data.image,
+                    price: data.salePrice,
+                    countInStock: data.countInStock,
+                    qty
+                },
+            })) : (
+            dispatch({
+                type: CART_SHOW_ITEM,
+                payload: {
+                    product: data._id,
+                    name: data.name,
+                    image: data.image,
+                    price: data.price,
+                    countInStock: data.countInStock,
+                    qty
+                },
+            })
+        )
+    }
 
     // localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
 }
@@ -63,7 +92,10 @@ export const removeFromCart = (id) => (dispatch, getState) => {
         payload: id,
     })
 
-    localStorage.setItem('cartItemId', JSON.stringify(getState().saveCartItemId.itemId))
+    const { userLogin: { userInfo } } = getState()
+    const cartKey = userInfo ? `cartItems_${userInfo.email}` : 'cartItems_generic'
+
+    localStorage.setItem(cartKey, JSON.stringify(getState().saveCartItemId.itemId))
 }
 
 

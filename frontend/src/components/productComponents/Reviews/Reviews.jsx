@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useNavigate } from 'react-router-dom'
 import Rating from '../../sharedComponents/Rating/Rating'
 import Loader from '../../sharedComponents/Loader/Loader'
 import Message from '../../sharedComponents/Message/Message'
@@ -16,6 +16,7 @@ const Reviews = () => {
 
     const { id } = useParams();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const productDetails = useSelector(state => state.productDetails);
     const { loading, error, product } = productDetails;
@@ -69,6 +70,8 @@ const Reviews = () => {
             dispatch(deleteReview(id, review_id));
         };
     };
+
+    if (error) return null
 
     return (
         <div className='reviews'>

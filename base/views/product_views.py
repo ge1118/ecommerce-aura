@@ -8,7 +8,7 @@ from rest_framework import status
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils import timezone
 from datetime import timedelta
-from django.db.models import Count
+from django.db.models import Count, Q
 
 from base.models import Product, Review
 from base.serializers import ProductSerializer
@@ -18,11 +18,13 @@ class GetProductsAPIView(GenericAPIView):
     serializer_class = ProductSerializer
 
     def get(self, request, *args, **kwargs):
-        category = request.query_params.get('category')
-        subcategory = request.query_params.get('subcategory')
-        query = request.query_params.get('keyword')
+        category = request.query_params.get('category') or ''
+        subcategory = request.query_params.get('subcategory') or ''
+        query = request.query_params.get('keyword') or ''
+        page = request.query_params.get('page') or 1
+        order_by = request.query_params.get('order') or '_id'
 
-        products = Product.objects.all()
+        products = Product.objects.all().order_by(order_by)
 
         if category == 'New':
             ten_days_ago = timezone.now() - timedelta(days=10)
@@ -32,20 +34,24 @@ class GetProductsAPIView(GenericAPIView):
         if subcategory:
             products = products.filter(subCategory__iexact=subcategory)
         if query:
-            products = products.filter(name__icontains=query)
+            products = products.filter(
+                Q(name__icontains=query) |
+                Q(category__icontains=query) |
+                Q(brand__icontains=query)
+            )        
+        
+        message = 'No Product Found' if not products.exists() else ''
 
-        page = request.query_params.get('page')
-        paginator = Paginator(products.order_by('_id'), 24)
+        paginator = Paginator(products, 24)
         try:
             products = paginator.page(page)
         except PageNotAnInteger:
             products = paginator.page(1)
         except EmptyPage:
             products = paginator.page(paginator.num_pages)
-
+        
         serializer = self.get_serializer(products, many=True)
-        return Response({'products': serializer.data, 'page': page, 'pages': paginator.num_pages})
-
+        return Response({'products': serializer.data, 'page': page, 'pages': paginator.num_pages, 'message': message})
 
 
 class GetTopProductsAPIView(GenericAPIView):
@@ -61,9 +67,13 @@ class GetProductAPIView(GenericAPIView):
     serializer_class = ProductSerializer
 
     def get(self, request, pk, *args, **kwargs):
-        product = Product.objects.get(_id=pk)
-        serializer = self.get_serializer(product)
-        return Response(serializer.data)
+        try:
+            product = Product.objects.get(_id=pk)
+            serializer = self.get_serializer(product)
+            return Response(serializer.data)
+        except:            
+            message = {'detail': 'An error has been occured. Please try again.'}
+            return Response(message, status=status.HTTP_400_BAD_REQUEST)
 
 
 class CreateProductAPIView(CreateAPIView):
@@ -98,10 +108,9 @@ class UpdateProductAPIView(UpdateAPIView):
         serializer.save()
 
 
-
 class DeleteProductAPIView(DestroyAPIView):
-    queryset = Product.objects.all()
     permission_classes = [IsAdminUser]
+    queryset = Product.objects.all()
     lookup_field = 'pk'
 
 
@@ -128,8 +137,6 @@ class CreateProductReviewAPIView(APIView):
             orderitem__order__user=user,
             orderitem__order__isDelivered=True
         ).distinct()
-
-        print(user_ordered_delivered_products)
 
         if not user_ordered_delivered_products.filter(_id=product._id).exists():
             content = {'detail': 'Buy and get this product to write a review!'}

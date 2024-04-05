@@ -6,7 +6,7 @@ import Loader from '../Loader/Loader'
 import Message from '../Message/Message'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useParams, useSearchParams } from 'react-router-dom'
-import { listNewProducts, listProducts, listTopProducts } from '../../../actions/productActions'
+import { listProducts, listTopProducts } from '../../../actions/productActions'
 
 const ProductsList = () => {
 
@@ -17,7 +17,7 @@ const ProductsList = () => {
     const { subcategory } = useParams();
 
     const productList = useSelector(state => state.productList);
-    const { error, loading, products, page, pages } = productList;
+    const { error, loading, products, page, pages, message } = productList;
 
     const productTopRated = useSelector(state => state.productTopRated);
     const { loading: loadingTopProducts, error: errorTopProducts, products: topProducts } = productTopRated;
@@ -41,23 +41,23 @@ const ProductsList = () => {
         };
     };
 
-    const encodeParam = (param) => {
-        if (param) {
-            return param.replace(/\+/g, '%2B');
-        } else {
-            return param;
-        };
-    };
+    // const encodeParam = (param) => {
+    //     if (param) {
+    //         return param.replace(/\+/g, '%2B');
+    //     } else {
+    //         return param;
+    //     };
+    // };
 
     const formattedCategory = formatTitle(category);
     const formattedSubcategory = formatTitle(subcategory);
-    const encodedCategory = encodeParam(formattedCategory);
-    const encodedSubcategory = encodeParam(formattedSubcategory);
+    // const encodedCategory = encodeParam(formattedCategory);
+    // const encodedSubcategory = encodeParam(formattedSubcategory);
 
     useEffect(() => {
-        dispatch(listProducts(keyword, pageQuery, encodedCategory, encodedSubcategory));
+        dispatch(listProducts(keyword, pageQuery, formattedCategory, formattedSubcategory));
         dispatch(listTopProducts());
-    }, [dispatch, keyword, pageQuery, encodedCategory, encodedSubcategory]);
+    }, [dispatch, keyword, pageQuery, formattedCategory, formattedSubcategory]);
 
     return (
         <div className='productslist'>
@@ -80,33 +80,34 @@ const ProductsList = () => {
                             ? <Loader />
                             : error
                                 ? <Message bgcolor='#ca7e7e' txtcolor='#fff'>{error}</Message>
-                                :
-                                <>
-                                    <div className="products">
-                                        {products.map((product, i) => (
-                                            <Product
-                                                key={i}
-                                                product={product}
-                                                status={product.countInStock === 0 ?
-                                                    'Out of Stock' :
-                                                    product.onSale ?
-                                                        'Sale' :
-                                                        product.isNew ?
-                                                            'New' :
-                                                            null
-                                                }
-                                                color={product.countInStock === 0 ?
-                                                    '#df4226' :
-                                                    product.onSale ?
-                                                        '#924a4d' :
-                                                        product.isNew ?
-                                                            '#8b7569' :
-                                                            null
-                                                } />
-                                        ))}
-                                    </div>
-                                    <Paginate page={page} pages={pages} keyword={keyword} category={category} subcategory={subcategory} />
-                                </>
+                                : products.length !== 0 ?
+                                    <>
+                                        <div className="products">
+                                            {products.map((product, i) => (
+                                                <Product
+                                                    key={i}
+                                                    product={product}
+                                                    status={product.countInStock === 0 ?
+                                                        'Out of Stock' :
+                                                        product.onSale ?
+                                                            'Sale' :
+                                                            product.isNew ?
+                                                                'New' :
+                                                                null
+                                                    }
+                                                    color={product.countInStock === 0 ?
+                                                        '#df4226' :
+                                                        product.onSale ?
+                                                            '#924a4d' :
+                                                            product.isNew ?
+                                                                '#8b7569' :
+                                                                null
+                                                    } />
+                                            ))}
+                                        </div>
+                                        <Paginate page={page} pages={pages} keyword={keyword} category={category} subcategory={subcategory} />
+                                    </> :
+                                    <Message bgcolor='#ca7e7e' txtcolor='#fff'>{message}</Message>
                     );
                     return (
                         loadingTopProducts

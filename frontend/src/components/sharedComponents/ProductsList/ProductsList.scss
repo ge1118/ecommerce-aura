@@ -40,16 +40,20 @@
 
 @media screen and (max-width: 1670px) {
     .productslist {
+        width: 75%;
+
         .products {
-            column-gap: 3.5rem;
+            column-gap: 9rem;
         }
     }
 }
 
 @media screen and (max-width: 1470px) {
     .productslist {
+        width: 80%;
+
         .products {
-            column-gap: 2.5rem;
+            column-gap: 8.5rem;
         }
     }
 }
@@ -59,7 +63,7 @@
         width: 80%;
 
         .products {
-            column-gap: 7.5rem;
+            column-gap: 8rem;
         }
     }
 }

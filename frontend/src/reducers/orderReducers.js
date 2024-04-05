@@ -186,6 +186,7 @@ export const orderListReducer = (state = { orders: [] }, action) => {
                 orders: action.payload.orders,
                 page: action.payload.page,
                 pages: action.payload.pages,
+                message: action.payload.message,
             }
 
         case ORDER_LIST_FAIL:

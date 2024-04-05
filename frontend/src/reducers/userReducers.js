@@ -130,6 +130,7 @@ export const userListReducer = (state = { users: [] }, action) => {
                 users: action.payload.users,
                 page: action.payload.page,
                 pages: action.payload.pages,
+                message: action.payload.message,
             }
 
         case USER_LIST_FAIL:

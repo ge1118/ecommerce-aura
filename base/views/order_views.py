@@ -4,6 +4,7 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from rest_framework import status
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Q
 
 from base.models import Product, Order, OrderItem, ShippingAddress 
 from base.serializers import OrderSerializer
@@ -87,11 +88,18 @@ class GetOrdersAPIView(APIView):
     permission_classes = [IsAdminUser]
 
     def get(self, request, *args, **kwargs):
-        orders = Order.objects.all().order_by('_id')
+        query = request.query_params.get('keyword') or ''
+        page = request.query_params.get('page') or 1
+        order_by = request.query_params.get('order') or '_id'
+        
+        orders = Order.objects.all().order_by(order_by)
+        
+        if query: 
+            orders = orders.filter(user__first_name__icontains=query)
+            
+        message = 'No Order Found' if not orders.exists() else ''
 
-        page = request.query_params.get('page')
-        paginator = Paginator(orders,24)
-
+        paginator = Paginator(orders, 24)
         try:
             orders = paginator.page(page)
         except PageNotAnInteger:
@@ -103,7 +111,7 @@ class GetOrdersAPIView(APIView):
             page = 1
 
         serializer = OrderSerializer(orders, many=True)
-        return Response({'orders' : serializer.data, 'page': page, 'pages': paginator.num_pages})
+        return Response({'orders' : serializer.data, 'page': page, 'pages': paginator.num_pages, 'message': message})
     
 
 class GetOrderByIdAPIView(APIView):
@@ -119,7 +127,7 @@ class GetOrderByIdAPIView(APIView):
                 serializer = OrderSerializer(order, many=False)
                 return Response(serializer.data)
             else:
-                Response({'detail': 'Not authorized to view this order'}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({'detail': 'Not authorized to view this order'}, status=status.HTTP_400_BAD_REQUEST)
 
         except:
             return Response({'detail': 'Order does not exist'}, status=status.HTTP_400_BAD_REQUEST)

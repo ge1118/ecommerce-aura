@@ -5,11 +5,39 @@ import {
     CART_SAVE_SHIPPING_ADDRESS,
     CART_SAVE_PAYMENT_METHOD,
     CART_CLEAR_ITEMS,
-
+    MERGE_CART_ITEMS
 } from '../constants/cartConstants'
 
 export const saveCartItemIdReducer = (state = { itemId: [] }, action) => {
     switch (action.type) {
+        case MERGE_CART_ITEMS:
+            const userInfo = action.payload
+
+            const genericCartItems = JSON.parse(localStorage.getItem('cartItems_generic')) || []
+            const userCartKey = `cartItems_${userInfo.email}`
+            const userCartItems = JSON.parse(localStorage.getItem(userCartKey)) || []
+
+            const mergedCartItems = [...userCartItems]
+            genericCartItems.forEach(genericItem => {
+                const existingItemIndex = mergedCartItems.findIndex(userItem => userItem.product === genericItem.product);
+                if (existingItemIndex === -1) {
+                    mergedCartItems.push(genericItem)
+                } else {
+                    mergedCartItems[existingItemIndex] = {
+                        ...mergedCartItems[existingItemIndex],
+                        qty: genericItem.qty
+                    }
+                };
+            });
+
+            localStorage.removeItem('cartItems_generic');
+            localStorage.setItem(userCartKey, JSON.stringify(mergedCartItems));
+
+            return {
+                ...state,
+                itemId: mergedCartItems
+            }
+
         case CART_ADD_ITEM:
             const item = action.payload
             const isExist = state.itemId.find(x => x.product == item.product)

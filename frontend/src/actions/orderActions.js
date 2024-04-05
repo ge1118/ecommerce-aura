@@ -60,7 +60,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
             payload: data
         })
 
-        localStorage.removeItem('cartItemId')
+        localStorage.removeItem(`cartItems_${userInfo.email}`)
 
     } catch (error) {
         dispatch({
@@ -198,10 +198,10 @@ export const listMyOrders = (page = '') => async (dispatch, getState) => {
             }
         }
 
-        const { data } = await axios.get(
-            `/api/orders/myorders?page=${page}`,
-            config
-        )
+        const { data } = await axios.get(`/api/orders/myorders`, {
+            params: { page },
+            ...config
+        })
 
         dispatch({
             type: ORDER_LIST_MY_SUCCESS,
@@ -219,7 +219,7 @@ export const listMyOrders = (page = '') => async (dispatch, getState) => {
 }
 
 
-export const listOrders = (page = '') => async (dispatch, getState) => {
+export const listOrders = (keyword = '', page = '', order = '') => async (dispatch, getState) => {
     try {
         dispatch({ type: ORDER_LIST_REQUEST })
 
@@ -233,12 +233,11 @@ export const listOrders = (page = '') => async (dispatch, getState) => {
                 Authorization: `Bearer ${userInfo.token}`
             }
         }
-        console.log(page)
 
-        const { data } = await axios.get(
-            `/api/orders?page=${page}`,
-            config
-        )
+        const { data } = await axios.get('/api/orders', {
+            params: { keyword, page, order },
+            ...config
+        })
 
         dispatch({
             type: ORDER_LIST_SUCCESS,

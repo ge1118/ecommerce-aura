@@ -1,6 +1,6 @@
 import './App.scss'
 
-import { HashRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import ScrollToTop from './components/sharedComponents/ScrollToTop/ScrollToTop'
 import Header from './components/sharedComponents/Header/Header'
 import Footer from './components/sharedComponents/Footer/Footer'
@@ -23,6 +23,7 @@ import FAQPage from './pages/FAQPage'
 import AboutPage from './pages/AboutPage'
 import ProductsPage from './pages/ProductsPage'
 import ContactPage from './pages/ContactPage'
+
 
 function App() {
   return (

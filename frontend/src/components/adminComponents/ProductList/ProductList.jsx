@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import './ProductList.scss'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../../sharedComponents/Loader/Loader'
 import Message from '../../sharedComponents/Message/Message'
@@ -13,13 +13,16 @@ const ProductList = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
     const [searchParams, setSearchParams] = useSearchParams();
+    const [userKeyword, setUserKeyword] = useState('');
+    const [order, setOrder] = useState('');
 
     const keyword = searchParams.get('keyword');
     const pageQuery = searchParams.get('page');
 
     const productList = useSelector(state => state.productList);
-    const { loading, error, products, page, pages } = productList;
+    const { loading, error, products, page, pages, message } = productList;
 
     const productDelete = useSelector(state => state.productDelete);
     const { loading: loadingDelete, error: errorDelete, success: successDelete } = productDelete;
@@ -33,16 +36,16 @@ const ProductList = () => {
     useEffect(() => {
         dispatch({ type: PRODUCT_CREATE_RESET });
 
-        if (!userInfo.isAdmin) {
+        if (!userInfo || !userInfo.isAdmin) {
             navigate('/login');
         }
 
         if (successCreate) {
-            navigate(`/admin/product/${createdProduct._id}/edit`);
+            navigate(`/admin/product/${createdProduct._id}/edit?action=create`);
         } else {
-            dispatch(listProducts(keyword, pageQuery));
+            dispatch(listProducts(userKeyword, pageQuery, '', '', order));
         }
-    }, [dispatch, navigate, userInfo, successDelete, successCreate, createdProduct, pageQuery]);
+    }, [dispatch, navigate, userInfo, successDelete, successCreate, createdProduct, pageQuery, keyword, order]);
 
     const deleteHandler = (id) => {
         if (window.confirm('Delete this product?')) {
@@ -54,14 +57,25 @@ const ProductList = () => {
         dispatch(createProduct());
     };
 
+    const submitHandler = (e) => {
+        e.preventDefault();
+        if (userKeyword) {
+            navigate(`${location.pathname}?keyword=${userKeyword}&page=1`);
+        } else {
+            navigate(location.pathname);
+        };
+    };
+
+    const orderHandler = (newOrder) => {
+        setOrder(prevOrder =>
+            prevOrder === newOrder ? `-${newOrder}` : newOrder
+        );
+    };
+
     return (
         <div className='productlist'>
             <h1>Products</h1>
             <hr />
-
-            <button onClick={createProductHandler}>
-                <i className='fas fa-plus' /> Create Product
-            </button>
 
             {loadingDelete && <Loader />}
             {errorDelete && <Message bgcolor='#ca7e7e' txtcolor='#fff'>{errorDelete}</Message>}
@@ -72,47 +86,60 @@ const ProductList = () => {
             {loading ?
                 <Loader /> :
                 error ? <Message bgcolor='#ca7e7e' txtcolor='#fff'>{error}</Message> :
-                    (
-                        <>
-                            <div className='products-table-container'>
-                                <table className="products-table">
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>NAME</th>
-                                            <th>PRICE</th>
-                                            <th>CATEGORY</th>
-                                            <th>BRAND</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
+                    products.length !== 0 ?
+                        (
+                            <>
+                                <div className='list-header'>
+                                    <form onSubmit={submitHandler}>
+                                        <input type="text" placeholder="Search.." onChange={(e) => setUserKeyword(e.target.value)}></input>
+                                    </form>
 
-                                    <tbody>
-                                        {
-                                            products.map(product => (
-                                                <tr key={product._id}>
-                                                    <td>{product._id}</td>
-                                                    <td>{product.name}</td>
-                                                    <td>{product.price}</td>
-                                                    <td>{product.category}</td>
-                                                    <td>{product.brand}</td>
-                                                    <td>
-                                                        <button className='edit' onClick={() => navigate(`/admin/product/${product._id}/edit`)}>
-                                                            <i className='fas fa-edit'></i>
-                                                        </button>
-                                                        <button className='delete' onClick={() => deleteHandler(product._id)}>
-                                                            <i className='fas fa-trash'></i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            ))
-                                        }
-                                    </tbody>
-                                </table>
-                            </div>
-                            <Paginate pages={pages} page={page} isAdmin={true} adminmenu={'product'} />
-                        </>
-                    )
+                                    <button onClick={createProductHandler}>
+                                        <i className='fas fa-plus' /> Create Product
+                                    </button>
+                                </div>
+
+                                <div className='products-table-container'>
+                                    <table className="products-table">
+                                        <thead>
+                                            <tr>
+                                                <th onClick={() => orderHandler('_id')}>ID</th>
+                                                <th onClick={() => orderHandler('name')}>NAME</th>
+                                                <th onClick={() => orderHandler('price')}>PRICE</th>
+                                                <th onClick={() => orderHandler('category')}>CATEGORY</th>
+                                                <th onClick={() => orderHandler('brand')}>BRAND</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            {
+                                                products.map(product => (
+                                                    <tr key={product._id}>
+                                                        <td>{product._id}</td>
+                                                        <td>{product.name}</td>
+                                                        <td>{product.price}</td>
+                                                        <td>{product.category}</td>
+                                                        <td>{product.brand}</td>
+                                                        <td>
+                                                            <button className='edit' onClick={() => navigate(`/admin/product/${product._id}/edit?action=edit`)}>
+                                                                <i className='fas fa-edit'></i>
+                                                            </button>
+                                                            <button className='delete' onClick={() => deleteHandler(product._id)}>
+                                                                <i className='fas fa-trash'></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                ))
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <Paginate pages={pages} page={page} isAdmin={true} adminmenu={'product'} />
+                            </>
+                        ) : (
+                            <Message bgcolor='#ca7e7e' txtcolor='#fff'>{message}</Message>
+                        )
             }
         </div>
     )

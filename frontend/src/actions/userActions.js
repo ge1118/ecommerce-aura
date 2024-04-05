@@ -37,6 +37,7 @@ import {
     USER_SUBSCRIBE_RESET,
 } from '../constants/userConstants'
 import { ORDER_LIST_MY_RESET } from '../constants/orderConstants'
+import { CART_CLEAR_ITEMS, } from '../constants/cartConstants'
 
 
 export const login = (email, password) => async (dispatch) => {
@@ -60,6 +61,9 @@ export const login = (email, password) => async (dispatch) => {
             payload: data
         })
 
+        const userCartKey = `cartItems_${data.email}`
+        const userCartItems = JSON.parse(localStorage.getItem(userCartKey)) || []
+
         localStorage.setItem('userInfo', JSON.stringify(data))
 
     } catch (error) {
@@ -79,6 +83,7 @@ export const logout = () => (dispatch) => {
     dispatch({ type: USER_DETAILS_RESET })
     dispatch({ type: ORDER_LIST_MY_RESET })
     dispatch({ type: USER_LIST_RESET })
+    dispatch({ type: CART_CLEAR_ITEMS })
 }
 
 
@@ -201,7 +206,7 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
 }
 
 
-export const listUsers = (page = '') => async (dispatch, getState) => {
+export const listUsers = (keyword = '', page = '', order = '') => async (dispatch, getState) => {
     try {
         dispatch({ type: USER_LIST_REQUEST })
 
@@ -216,10 +221,10 @@ export const listUsers = (page = '') => async (dispatch, getState) => {
             }
         }
 
-        const { data } = await axios.get(
-            `/api/users?page=${page}`,
-            config
-        )
+        const { data } = await axios.get(`/api/users`, {
+            params: { keyword, page, order },
+            ...config
+        })
 
         dispatch({
             type: USER_LIST_SUCCESS,

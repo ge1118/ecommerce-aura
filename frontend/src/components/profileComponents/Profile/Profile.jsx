@@ -30,7 +30,7 @@ const Profile = () => {
     const { userInfo } = userLogin;
 
     const userUpdateProfile = useSelector(state => state.userUpdateProfile);
-    const { success } = userUpdateProfile;
+    const { success, message: updateProfileMessage, error: updateProfileError } = userUpdateProfile;
 
     const orderListMy = useSelector(state => state.orderListMy);
     const { orders, loading: loadingOrders, error: errorOrders, page, pages } = orderListMy;
@@ -51,25 +51,40 @@ const Profile = () => {
     }, [navigate, dispatch, userInfo, user, success,]);
 
     useEffect(() => {
+        console.log(updateProfileError)
         if (userInfo) {
             dispatch(listMyOrders(pageQuery));
         };
-    }, [dispatch, pageQuery, userInfo]);
+        if (success) {
+            setMessage('Your information has been successfully updated.');
 
-    const submitHandler = (e) => {
+            setTimeout(() => {
+                setMessage('');
+            }, 3000);
+        } else if (updateProfileError) {
+            setMessage(updateProfileError);
+            setTimeout(() => {
+                setMessage('');
+            }, 3000);
+        };
+    }, [dispatch, pageQuery, userInfo, success, updateProfileError]);
+
+    const submitHandler = async (e) => {
         e.preventDefault();
 
-        if (password != confirmPassword) {
-            setMessage('Password Do Not Match');
+        if (password !== confirmPassword) {
+            setMessage('Passwords do not match.');
+            setTimeout(() => {
+                setMessage('');
+            }, 3000);
         } else {
-            dispatch(updateUserProfile({
-                'id': user._id,
-                'name': name,
-                'email': email,
-                'password': password,
+            await dispatch(updateUserProfile({
+                id: user._id,
+                name: name,
+                email: email,
+                password: password,
             }));
-            setMessage('');
-        };
+        }
     };
 
     return (
@@ -85,6 +100,9 @@ const Profile = () => {
                 <div className="user-info">
                     <h3>User Info</h3>
                     <hr />
+                    {
+                        success && <Message bgcolor='#ca7e7e' txtcolor='#fff'>{updateProfileMessage}</Message>
+                    }
 
                     <form className="update-form" onSubmit={submitHandler}>
                         <label>Name</label>

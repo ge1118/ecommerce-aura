@@ -40,24 +40,29 @@ import {
     PRODUCT_REVIEW_DELETE_REQUEST,
     PRODUCT_REVIEW_DELETE_SUCCESS,
     PRODUCT_REVIEW_DELETE_FAIL,
+    PRODUCT_DETAILS_RESET,
 } from '../constants/productConstants'
 
 
-export const listProducts = (keyword = '', page = '', category = '', subcategory = '') => async (dispatch) => {
+export const listProducts = (keyword = '', page = '', category = '', subcategory = '', order = '') => async (dispatch) => {
     try {
         dispatch({ type: PRODUCT_LIST_REQUEST })
 
-        const baseUrl = (
-            subcategory ? `/api/products?category=${category}&subcategory=${subcategory}`
-                : category ? `/api/products?category=${category}`
-                    : '/api/products?'
-        )
+        // const baseUrl = (
+        //     subcategory ? `/api/products?category=${category}&subcategory=${subcategory}`
+        //         : category ? `/api/products?category=${category}`
+        //             : '/api/products?'
+        // )
 
-        const { data } = (!keyword && !page ?
-            await axios.get(`${baseUrl}`) :
-            (keyword == null) ?
-                await axios.get(`${baseUrl}&page=${page}`) :
-                await axios.get(`${baseUrl}&keyword=${keyword}&page=${page}`))
+        // const { data } = (!keyword && !page ?
+        //     await axios.get(`${baseUrl}`) :
+        //     (keyword == null) ?
+        //         await axios.get(`${baseUrl}&page=${page}`) :
+        //         await axios.get(`${baseUrl}&keyword=${keyword}&page=${page}`))
+
+        const { data } = await axios.get(`/api/products`, {
+            params: { category, subcategory, keyword, page, order }
+        })
 
         dispatch({
             type: PRODUCT_LIST_SUCCESS,
@@ -95,30 +100,6 @@ export const listTopProducts = () => async (dispatch) => {
         })
     }
 }
-
-
-export const listNewProducts = (page = '') => async (dispatch) => {
-    try {
-        dispatch({ type: PRODUCT_NEW_REQUEST })
-
-        const { data } = await axios.get(`/api/products/new?page=${page}`)
-
-        dispatch({
-            type: PRODUCT_NEW_SUCCESS,
-            payload: data
-        })
-
-    } catch (error) {
-        dispatch({
-            type: PRODUCT_NEW_FAIL,
-            payload: error.response && error.response.data.detail
-                ? error.response.data.detail
-                : error.message,
-        })
-    }
-}
-
-
 
 export const listProductDetails = (id) => async (dispatch) => {
     try {

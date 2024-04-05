@@ -1,6 +1,5 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
 // import thunk from 'redux-thunk'
-// import { composeWithDevTools } from 'redux-devtools-extension'
 import {
     productListReducer,
     productDetailsReducer,
@@ -68,13 +67,25 @@ const reducer = combineReducers({
     orderList: orderListReducer,
 })
 
-const cartItemFromStorage = localStorage.getItem('cartItemId')
-    ? JSON.parse(localStorage.getItem('cartItemId'))
-    : []
-
 const userInfoFromStorage = localStorage.getItem('userInfo')
     ? JSON.parse(localStorage.getItem('userInfo'))
     : null
+
+const getCartItemForUser = (userInfo) => {
+    if (userInfo && userInfo.email) {
+        const key = `cartItems_${userInfo.email}`
+        return localStorage.getItem(key) ? JSON.parse(localStorage.getItem(key)) : []
+    } else if (localStorage.getItem('cartItems_generic')) {
+        return JSON.parse(localStorage.getItem('cartItems_generic'))
+    }
+    return []
+}
+
+// const cartItemFromStorage = localStorage.getItem('cartItemId')
+//     ? JSON.parse(localStorage.getItem('cartItemId'))
+//     : []
+
+const cartItemFromStorage = getCartItemForUser(userInfoFromStorage)
 
 const shippingAddressFromStorage = localStorage.getItem('shippingAddress')
     ? JSON.parse(localStorage.getItem('shippingAddress'))

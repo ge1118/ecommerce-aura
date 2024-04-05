@@ -19,6 +19,7 @@ const Header = () => {
         setIsUserVisible(false);
         setIsAdminVisible(false);
         dispatch(logout());
+        navigate('/')
     };
 
     const [isNarrow, setIsNarrow] = useState(window.innerWidth <= 650);
@@ -87,6 +88,7 @@ const Header = () => {
     }, [location]);
 
     const submitHandler = (e) => {
+        e.preventDefault();
         if (keyword && location.pathname.startsWith('/products')) {
             navigate(`${location.pathname}?keyword=${keyword}&page=1`);
         } else if (keyword && !location.pathname.startsWith('/products')) {

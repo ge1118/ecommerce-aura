@@ -17,6 +17,23 @@
         width: 100%;
     }
 
+    form {
+        align-self: flex-start;
+        margin-bottom: 0.5rem;
+
+        input {
+            outline: none;
+            border: 1px solid #cccccc;
+            padding: 0.6rem 0.8rem;
+            padding-left: 3rem;
+            width: 20rem;
+            background-image: url('../../../assets/images/search.png');
+            background-repeat: no-repeat;
+            background-size: 18px;
+            background-position: 14px center;
+        }
+    }
+
     .orders-table-container {
         width: 100%;
 
@@ -26,6 +43,7 @@
             thead {
                 th {
                     height: 4rem;
+                    cursor: pointer;
                 }
             }
 
@@ -75,6 +93,19 @@
             .orders-table {
                 width: 50rem;
                 align-self: flex-start;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 370px) {
+    .orderlist {
+
+        form {
+            width: 100%;
+
+            input {
+                width: 100%;
             }
         }
     }

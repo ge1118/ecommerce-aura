@@ -21,10 +21,18 @@ const PlaceOrder = () => {
     const taxPrice = ((0.13) * itemsPrice).toFixed(2);
     const totalPrice = (Number(itemsPrice) + Number(shippingPrice) + Number(taxPrice)).toFixed(2);
 
+    const userLogin = useSelector(state => state.userLogin);
+    const { userInfo } = userLogin;
+
     useEffect(() => {
+        if (!userInfo) {
+            navigate('/login');
+        }
+
         if (!cart.paymentMethod) {
             navigate('/payment');
         };
+
         if (success) {
             navigate(`/order/${order._id}`);
             dispatch({ type: ORDER_CREATE_RESET });

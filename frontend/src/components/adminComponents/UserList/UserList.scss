@@ -7,6 +7,23 @@
     gap: 1rem;
     width: 65%;
 
+    form {
+        align-self: flex-start;
+        margin-bottom: 0.5rem;
+
+        input {
+            outline: none;
+            border: 1px solid #cccccc;
+            padding: 0.6rem 0.8rem;
+            padding-left: 3rem;
+            width: 20rem;
+            background-image: url('../../../assets/images/search.png');
+            background-repeat: no-repeat;
+            background-size: 18px;
+            background-position: 14px center;
+        }
+    }
+
     h1 {
         font-size: 1.5rem;
         font-weight: normal;
@@ -26,6 +43,7 @@
             thead {
                 th {
                     height: 4rem;
+                    cursor: pointer;
                 }
             }
 
@@ -79,6 +97,19 @@
             .users-table {
                 width: 50rem;
                 align-self: flex-start;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 370px) {
+    .userlist {
+
+        form {
+            width: 100%;
+
+            input {
+                width: 100%;
             }
         }
     }

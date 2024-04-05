@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { savePaymentMethod } from '../../../actions/cartActions'
@@ -8,12 +8,15 @@ import CheckoutSteps from '../../sharedComponents/CheckoutSteps/CheckoutSteps'
 const Payment = () => {
 
     const cart = useSelector(state => state.cart);
-    const { shippingAddress } = cart;
+    const { cartItems, shippingAddress } = cart;
 
     const [paymentMethod, setPaymentMethod] = useState('PayPal');
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const userLogin = useSelector(state => state.userLogin);
+    const { userInfo } = userLogin;
 
     if (!shippingAddress.address) {
         navigate('/shipping');
@@ -24,6 +27,15 @@ const Payment = () => {
         dispatch(savePaymentMethod(paymentMethod));
         navigate('/placeorder');
     };
+
+    useEffect(() => {
+        if (!userInfo) {
+            navigate('/login');
+        }
+        if (cartItems.length === 0) {
+            navigate('/cart')
+        }
+    })
 
     return (
         <div className='payment'>

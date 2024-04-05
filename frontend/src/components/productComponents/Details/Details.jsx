@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import Rating from '../../sharedComponents/Rating/Rating'
 import Loader from '../../sharedComponents/Loader/Loader'
@@ -7,12 +7,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { listProductDetails } from '../../../actions/productActions.js'
 import './Details.scss'
 import { addToCart } from '../../../actions/cartActions.js'
+import { PRODUCT_DETAILS_RESET } from '../../../constants/productConstants.js'
 
 const Details = () => {
 
     const [qty, setQty] = useState(1);
-    const [rating, setRating] = useState(0);
-    const [comment, setComment] = useState('');
 
     const { id } = useParams();
     const navigate = useNavigate();
@@ -21,13 +20,22 @@ const Details = () => {
     const productDetails = useSelector(state => state.productDetails);
     const { loading, error, product } = productDetails;
 
-    const userLogin = useSelector(state => state.userLogin);
-    const { userInfo } = userLogin;
-
     const addToCartHandler = () => {
         dispatch(addToCart(id, qty));
         navigate(`/cart`);
     };
+
+    useEffect(() => {
+        if (error) {
+            navigate('/');
+        };
+
+        return () => {
+            dispatch({ type: PRODUCT_DETAILS_RESET });
+        };
+    }, [error, navigate]);
+
+    if (error) return null;
 
     return (
         <div className='details'>
