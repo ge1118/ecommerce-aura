@@ -11,17 +11,20 @@ Feel free to register an account, explore various products, and order what you w
 ## Key Features
 - User Authentication: Secure login, registration, and logout functionality.
 - User Profile Page: Allows users to update their information and view previous orders.
-- Top Products and Search Function: Showcases the top 5 products based on reviews and includes a search feature for easy product discovery.
+- Top Products and Search Function: Showcases the top 12 products based on reviews and includes a search feature for easy product discovery.
 - Shopping Cart: Allows users to add products to a cart, adjust quantities, and remove items as needed before checkout.
 - Order and Payment: Supports processing orders and secure payment transactions, integration with PayPal for providing users with a smooth and secure checkout experience.
 - Admin Panels: Comprehensive management interface for users, orders, and products. Admins can also assign user roles, edit products, and update order statuses.
+- Responsive Design: Ensures a seamless and user-friendly interface across all devices, providing an optimal viewing and interaction experience for desktop, tablet, and mobile users.
 
 ## Technologies
 - Frontend: React, Redux, SCSS
 - Backend: Python, Django
-- Database: PostgreSQL
-- Media Storage: AWS S3
+- Database: PostgreSQL, AWS RDS
+- Media Storage: AWS S3, IAM
 - Payment System: PayPal Integration
+- API Test: Postman
+- Email: EmailJS
 - Deployment: Heroku
 
 ## Getting Started
@@ -30,7 +33,10 @@ Feel free to register an account, explore various products, and order what you w
 - Vite
 - Python
 - PostgreSQL
-- AWS Account for S3 Bucket Access
+- Personal Email Account
+- EmailJS Account
+- PayPal Sandbox Account
+- AWS Account for S3, IAM, RDS
 - Virtual Environment (recommended)
 
 ### Setup
@@ -51,7 +57,7 @@ pip install -r requirements.txt
 npm install
 ```
 
-4. Configure AWS S3 Bucket
+4. Configure AWS
 - Create an AWS S3 bucket and note your bucket name and region.
 - Create IAM credentials (access key ID and secret access key) with permissions to access the bucket.
 
@@ -97,8 +103,8 @@ python manage.py runserver
 Access the application at http://127.0.0.1:8000/.
 
 ## .env and .env.example
-- .env: This file contains your project's environment-specific settings, including secret keys and credentials. It's crucial for the security of your project that this file is never committed to version control.
-- .env.example: A template showcasing the required environment variables without actual values. This file should be committed to your repository to guide setup for other developers.
+- .env: This file contains the project's environment-specific settings, including secret keys and credentials.
+- .env.example: A template showcasing the required environment variables without actual values.
 
 ## AWS S3 Configuration
 Media files in AURA are served via AWS S3. Ensure you have correctly set up your AWS S3 bucket and provided the necessary credentials in your .env file as described in the setup section.
